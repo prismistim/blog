@@ -20,10 +20,6 @@ const { title, description, image = '/snowsphere.jpg' } = Astro.props
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Font preloads -->
-<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
-
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
@@ -40,7 +36,7 @@ const { title, description, image = '/snowsphere.jpg' } = Astro.props
 <meta property="og:image" content={new URL(image, Astro.url)} />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_card" />
+<meta property="twitter:card" content="summary" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
