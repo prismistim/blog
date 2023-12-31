@@ -1,0 +1,23 @@
+---
+import '@fontsource/kosugi'
+import '@fontsource-variable/fira-code'
+import '@fontsource/dotgothic16'
+
+import BaseHead from '../components/BaseHead.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<html lang="ja">
+  <head>
+    <BaseHead title={'test'} description={'test'} />
+  </head>
+
+  <body>
+    <Header />
+    <main class="container mx-auto px-4 max-w-[800px]">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
