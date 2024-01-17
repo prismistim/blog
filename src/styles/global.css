@@ -38,4 +38,8 @@
   article a {
     @apply text-sm text-indigo-400 underline underline-offset-4 decoration-indigo-400 hover:decoration-indigo-600 decoration-1 mb-1 transition hover:text-indigo-600 ease-in hover:cursor-pointer
   }
+
+  article img {
+    @apply rounded-md
+  }
 }
