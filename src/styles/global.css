@@ -42,4 +42,16 @@
   article img {
     @apply rounded-md
   }
+
+  article ul {
+    @apply  list-disc list-inside
+  }
+
+  article ul > li {
+    @apply mb-2
+  }
+
+  article ul > li > ul {
+    @apply mt-2 ml-4
+  }
 }
