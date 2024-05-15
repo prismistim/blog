@@ -42,4 +42,12 @@
   article img {
     @apply rounded-md
   }
+
+  article ul {
+    @apply list-disc list-inside space-y-1 leading-8
+  }
+
+  article ul > li > ul {
+    @apply mt-1 ml-4
+  }
 }
