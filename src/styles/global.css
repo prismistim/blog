@@ -44,14 +44,10 @@
   }
 
   article ul {
-    @apply  list-disc list-inside
-  }
-
-  article ul > li {
-    @apply mb-2
+    @apply list-disc list-inside space-y-1 leading-8
   }
 
   article ul > li > ul {
-    @apply mt-2 ml-4
+    @apply mt-1 ml-4
   }
 }
