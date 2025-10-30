@@ -1,3 +1,7 @@
+# blog
+駄文
+
+---
 # Astro Starter Kit: Blog
 
 ```sh

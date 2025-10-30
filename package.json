@@ -7,27 +7,33 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
+    "lint:text": "textlint \"./{blog}/*.md\" -f pretty-error",
+    "lint:text:fix": "textlint \"./{blog}/*.md\" --fix",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.3.4",
-    "@astrojs/mdx": "^2.0.3",
-    "@astrojs/rss": "^4.0.1",
-    "@astrojs/sitemap": "^3.0.4",
-    "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.0.8",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5.3.3"
+    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/rss": "^4.0.13",
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/tailwind": "^5.1.5",
+    "astro": "^4.16.19",
+    "tailwindcss": "^3.4.18",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@fontsource-variable/fira-code": "^5.0.16",
-    "@fontsource/dotgothic16": "^5.0.17",
-    "@fontsource/kosugi": "^5.0.17",
-    "@typescript-eslint/parser": "^6.16.0",
-    "dayjs": "^1.11.10",
-    "eslint": "^8.56.0",
-    "eslint-plugin-astro": "^0.31.0",
-    "prettier": "^3.1.1",
-    "prettier-plugin-astro": "^0.12.3"
+    "@fontsource-variable/fira-code": "^5.2.7",
+    "@fontsource/dotgothic16": "^5.2.8",
+    "@fontsource/kosugi": "^5.2.8",
+    "@typescript-eslint/parser": "^6.21.0",
+    "dayjs": "^1.11.18",
+    "eslint": "^8.57.1",
+    "eslint-plugin-astro": "^0.31.4",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.12.3",
+    "textlint": "^15.2.3",
+    "textlint-filter-rule-comments": "^1.2.2",
+    "textlint-rule-preset-ja-spacing": "^2.4.3",
+    "textlint-rule-preset-ja-technical-writing": "^12.0.2"
   }
 }
