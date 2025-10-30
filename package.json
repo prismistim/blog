@@ -7,8 +7,8 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "lint:text": "textlint \"./{blog}/*.md\" -f pretty-error",
-    "lint:text:fix": "textlint \"./{blog}/*.md\" --fix",
+    "lint:text": "textlint \"./src/content/blog/*.mdx\" -f pretty-error",
+    "lint:text:fix": "textlint \"./src/content/blog/*.mdx\" --fix",
     "astro": "astro"
   },
   "dependencies": {
