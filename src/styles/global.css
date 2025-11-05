@@ -32,7 +32,7 @@
   }
 
   article p {
-    @apply leading-8
+    @apply leading-6
   }
 
   article a {
