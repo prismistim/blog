@@ -16,7 +16,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
               href={`/article/${post.slug}/`}
               class="underline underline-offset-4 decoration-neutral-400 hover:decoration-indigo-600 decoration-1 transition hover:text-indigo-600 ease-in hover:cursor-pointer"
             >
-              <FormattedDate date={post.data.pubDate} /> - {post.data.title}
+              <FormattedDate date={post.data.pubDate} format='YYMMDD' />{post.data.title}
             </a>
           </li>
         ))
