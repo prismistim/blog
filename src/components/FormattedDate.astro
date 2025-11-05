@@ -3,11 +3,12 @@ import dayjs from 'dayjs'
 
 interface Props {
   date: Date
+  format?: string
 }
 
-const { date } = Astro.props
+const { date, format = 'YYYY-MM-DD' } = Astro.props
 ---
 
 <time datetime={date.toISOString()}>
-  {dayjs(date).format('YYYY-MM-DD')}
+  {dayjs(date).format(format)}
 </time>
