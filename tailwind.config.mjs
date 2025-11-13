@@ -4,7 +4,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Fira Code Variable', 'Kosugi'],
+				main: ['M PLUS 1 Code Variable'],
 				title: ['DotGothic16']
 			}
 		},

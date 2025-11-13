@@ -1,6 +1,5 @@
 ---
-import '@fontsource/kosugi'
-import '@fontsource-variable/fira-code'
+import '@fontsource-variable/m-plus-1-code'
 import '@fontsource/dotgothic16'
 
 import type { CollectionEntry } from 'astro:content'
@@ -27,10 +26,10 @@ const { title, description, pubDate, updatedDate } = Astro.props
           <h1 class="font-title">{title}</h1>
           <dl class="mt-6">
             <dt class="text-neutral-500">created_at:</dt>
-            <dd><FormattedDate date={pubDate} format='YYYY-MM-DD HH:mm' /></dd>
+            <dd><FormattedDate date={pubDate} format='YYYY-MM-DD' /></dd>
             {updatedDate && (
                 <dt class="mt-3 text-neutral-500">updated_at:</dt>
-                <dd><FormattedDate date={updatedDate} format='YYYY-MM-DD HH:mm' /></dd>
+                <dd><FormattedDate date={updatedDate} format='YYYY-MM-DD' /></dd>
               )
             }
           </dl>
