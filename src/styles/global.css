@@ -11,7 +11,7 @@
   }
 
   html {
-    @apply bg-neutral-950 text-neutral-400
+    @apply bg-neutral-950 text-neutral-300
   }
 
   h1, h2, h3, h4, h5 {
@@ -60,5 +60,9 @@
 
   article ul > li > ul {
     @apply mt-1 ml-4
+  }
+
+  article ol {
+    @apply list-decimal list-inside
   }
 }
