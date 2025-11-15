@@ -14,9 +14,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
 
-  <body>
+  <body class="container mx-auto px-4 max-w-[800px]">
     <Header />
-    <main class="container mx-auto px-4 max-w-[800px]">
+    <main>
       <slot />
     </main>
     <Footer />
