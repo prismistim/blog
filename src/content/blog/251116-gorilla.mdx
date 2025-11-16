@@ -1,0 +1,112 @@
+---
+title: 'MisskeyでListenBrainzなどを使ってなうぷれする'
+description: '力技です'
+pubDate: '2025-11-16'
+---
+
+Misskeyでなうぷれがしたい！そういう時に何を使えばいいでしょうか？メディアの再生状態を取得してなうぷれ用のテキストを生成してくれるアプリとかあると思うんですが、わざわざそれを開いて貼り付けてっていうのは少し面倒ですよね？そんな時にListenBrainzのAPIを使うことで結構簡単にできます。
+
+## ListenBrainz とは
+再生した曲の履歴を記録しておくことができるサービスです。メタデータはMusicBrainzから取得していたりするので、有志が登録した豊富なメタデータの中から自分が聴いている曲の情報を良い感じに取得してくれます。あとOSSなので透明性が高いのと、セルフホストで動かすこともできなくはないのが魅力ですね。
+
+ListenBrainzにはAPIがあり、そのうちの `/1/user/(mb_username: user_name)/playing-now` を叩くことで、指定したユーザーの再生中の楽曲情報が取得できます。今回はそれを用いました。
+https://listenbrainz.readthedocs.io/en/latest/users/api/core.html#get--1-user-(mb_username-user_name)-playing-now
+
+## ListenBrainzに再生ステータスを投げる(Scrobble)
+再生している曲情報を取得する前に、まず何を聴いているのかListenBrainzに投げなくてはなりません。方法はいろいろあるのですが、自分はWindowsとAndroidの端末でよく音楽を聴くので、ブラウザ拡張のWeb Scrobbler と Pano Scrobbler あたりがいいんじゃないかなと思います。ListenBrainzの連携機能で各種サービスと連携する機能があるのですが、基本的にListenBrainz内で再生するときにそのサービスと再生状態を共有したりできる機能なので少し違います。また、Spotifyの連携機能で再生履歴を取得してくれる機能があるのですが、リアルタイムではないので今回のユースケースには合いませんでした。
+
+このリンク先に、どうやってScrobbleするかの選択肢が載っているので良かったら参考にしてください。
+https://listenbrainz.org/add-data/
+
+## ListenBrainzから再生中の楽曲情報を取得する
+端末から再生情報を投げることができるようになったら、APIのエンドポイントを叩いて情報を取得してみます。この `/1/user/(mb_username: user_name)/playing-now` ですが、特にトークンがなくても取得できるのでとりあえず自分のユーザー名を入れてリクエストしてみます。
+
+あ、ちなみにURLは `https://api.listenbrainz.org` です。
+
+```json
+{
+  "payload": {
+    "count": 1,
+    "listens": [
+      {
+        "playing_now": true,
+        "track_metadata": {
+          "additional_info": {
+            "duration": 120,
+            "music_service_name": "SoundCloud",
+            "origin_url": "https://soundcloud.com/undinesoundworks/fugue-vgen-october-2025",
+            "submission_client": "Web Scrobbler",
+            "submission_client_version": "3.18.0"
+          },
+          "artist_name": "Undine Soundworks",
+          "track_name": "Fugue"
+        }
+      }
+    ],
+    "playing_now": true,
+    "user_id": "snosph"
+  }
+}
+```
+
+叩くとこんな感じで返ってくるので、こ子から必要な情報を抜き出してMisskeyで扱えるようにします。
+
+## Misskeyに投稿する
+Misskeyへ投稿する際にどうすればいいのか少し迷いました。というのも、MisskeyのプラグインやPlayでは、AiScriptという言語を用いて実装します。Misskeyではそれの拡張機能が提供されているのですが、外部APIを叩くことができないようになっているからです。以前は `Mk:apiExternal()` という機能を呼び出せばできたらしいんですが、なんやかんやあって今はできないみたいですね。
+
+そこで、Misskeyにあるページの機能を用いて、定期的に外部からページの内容を更新してそれを読み取るような感じにしてみました。Misskeyから取得してくるのではなく、Misskeyの外から更新する感じです。
+また、こういう定期的に取得して更新するみたいな用途だとページが一番いいのかなと思いました。
+
+もちろんそのまま投稿してしまうのもありなんですが、投稿したい内容は自分で制御できたらいいなと思って...。ページの内容を取得する機能もAiScriptを通じで呼び出せるので、それで取得して投稿ボタンを押すと投稿できるような形にしました。
+
+```js
+@renderView() {
+  let pageData = Mk:api('pages/show', {
+    pageId: 'YOUR_PAGE_ID'
+  })
+
+  let postText = pageData.content[0].text
+
+  // ウィジェットのUIを構築
+  Ui:render([
+    Ui:C:container({
+      children: [
+        Ui:C:text({ text: postText }),
+        Ui:C:postFormButton({
+          text: '投稿する'
+          rounded: true
+          primary: true
+          form: {
+            text: `{postText} #nowplaying`
+          }
+        }),
+        Ui:C:button({
+          text: "再取得",
+          onClick: @() {
+            renderView()
+          }
+        })
+      ],
+      align: 'center'
+      padding: 1
+      rounded: true
+      borderRadius: 1
+      hidden: false
+    })
+  ])
+}
+
+@main() {
+  renderView()
+}
+
+main()
+```
+こんな感じのコードをウィジェットに追加して使ってます。このコードだとすべて再描画してるのが若干気になるのでまた直せそうなら直したいですね。
+
+## 最後に
+
+定期的な取得とMisskeyのページへの書き込みはCloudflare Workersで動かしています。一応参考程度にリポジトリのリンクを置いておきます。
+https://github.com/prismistim/nowplaying-gorilla
+
+この機能、フォークの機能の一部として開発されている方もいました。自分は素のMisskeyを運用しているので、たぶんそっちの方が色々な体験的な面でも良さそうな気がしますね。
