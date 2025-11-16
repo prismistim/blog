@@ -3,5 +3,6 @@
     "source.fixAll": "always"
   },
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "astro-build.astro-vscode"
+  "editor.defaultFormatter": "astro-build.astro-vscode",
+  "textlint.configPath": "./"
 }
