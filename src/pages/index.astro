@@ -3,24 +3,26 @@ import Default from '../layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
 import FormattedDate from '../components/FormattedDate.astro'
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).filter((post) => !post.data.isHidden)
 ---
 
 <Default>
   <section>
     <ul class="space-y-4">
-      {posts.map((post) => (
-        <li>
-          <a
-            href={`/article/${post.slug}/`}
-            class="block p-3 ring-1 rounded-md ring-neutral-100/30 hover:bg-neutral-300 hover:text-neutral-900 transition ease-in hover:cursor-pointer"
-          >
-            <FormattedDate date={post.data.pubDate} format='YYYY-MM-DD' />
-            <h2 class="mt-2 text-lg">{post.data.title}</h2>
-            <p class="mt-2 italic text-neutral-400">{post.data.description}</p>
-          </a>
-        </li>
-      ))}
+      {
+        posts.map((post) => (
+          <li>
+            <a
+              href={`/article/${post.slug}/`}
+              class="block p-3 ring-1 rounded-md ring-neutral-100/30 hover:bg-neutral-300 hover:text-neutral-900 transition ease-in hover:cursor-pointer"
+            >
+              <FormattedDate date={post.data.pubDate} format="YYYY-MM-DD" />
+              <h2 class="mt-2 text-lg">{post.data.title}</h2>
+              <p class="mt-2 italic text-neutral-400">{post.data.description}</p>
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </section>
 </Default>
