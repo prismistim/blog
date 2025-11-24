@@ -10,7 +10,7 @@ import FormattedDate from '../components/FormattedDate.astro'
 
 type Props = CollectionEntry<'blog'>['data']
 
-const { title, description, pubDate, updatedDate } = Astro.props
+const { title, description, pubDate, updatedDate, isCW } = Astro.props
 ---
 
 <html lang="ja">
@@ -34,10 +34,18 @@ const { title, description, pubDate, updatedDate } = Astro.props
             }
           </dl>
         </header>
-
-        <section class="content mt-6">
-          <slot />
-        </section>
+        {isCW ? (
+          <details class="group mt-6">
+            <summary class="p-6 list-none border border-amber-900 select-none hover:cursor-pointer">この記事にはネガティブな要素が含まれる可能性があります。(クリックして開く)</summary>
+            <section class="content mt-6">
+              <slot />
+            </section>
+          </details>
+        ) : (
+          <section class="content mt-6">
+            <slot />
+          </section>
+        )}
       </article>
 
       <nav class="mt-6 py-4 border-t border-neutral-600 border-dotted" aria-label="記事一覧へ戻る">
