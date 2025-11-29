@@ -18,17 +18,18 @@ const { title, description, pubDate, updatedDate, isCW } = Astro.props
     <BaseHead title={title} description={description} />
   </head>
 
-  <body class="container mx-auto px-4 max-w-[800px]">
+  <body class="container mx-auto px-4 max-w-[800px] font-main">
     <Header />
     <main>
       <article>
-        <header class="pb-6 border-b border-neutral-500 border-dotted">
-          <h1 class="font-title">{title}</h1>
-          <dl class="mt-6">
-            <dt class="text-neutral-500">created_at:</dt>
+        <header class="min-h-60 p-6 rounded-md backdrop-blur-md text-neutral-100 text-shadow-lg overflow-hidden">
+          <div class="absolute inset-0 -z-10 bg-[url(https://asset2.asayake.dev/thumb/danchi.webp)] bg-cover transition blur-xs"></div>
+          <h1 id="article_title" class="font-title tracking-wider text-shadow-lg">{title}</h1>
+          <dl class="mt-4">
+            <dt class="">created_at</dt>
             <dd><FormattedDate date={pubDate} format='YYYY-MM-DD' /></dd>
             {updatedDate && (
-                <dt class="mt-3 text-neutral-500">updated_at:</dt>
+                <dt class="mt-3">updated_at</dt>
                 <dd><FormattedDate date={updatedDate} format='YYYY-MM-DD' /></dd>
               )
             }
@@ -48,12 +49,18 @@ const { title, description, pubDate, updatedDate, isCW } = Astro.props
         )}
       </article>
 
-      <nav class="mt-6 py-4 border-t border-neutral-600 border-dotted" aria-label="記事一覧へ戻る">
+      <nav class="flex justify-between mt-6 py-4 border-t border-neutral-600 border-dotted" aria-label="記事一覧へ戻る">
         <a
           href="/"
-          class="text-neutral-500 underline underline-offset-4 decoration-neutral-400 hover:decoration-rose-500 decoration-1 mb-1 transition hover:text-rose-500 ease-in hover:cursor-pointer"
+          class="text-neutral-300 underline underline-offset-4 decoration-neutral-400 hover:decoration-rose-500 decoration-1 duration-100 transition hover:text-rose-500 ease-in hover:cursor-pointer"
         >
-          back_to_list
+          Back to list
+        </a>
+        <a
+          href="#article_title"
+          class="text-neutral-300 underline underline-offset-4 decoration-neutral-400 hover:decoration-rose-500 decoration-1 duration-100 transition hover:text-rose-500 ease-in hover:cursor-pointer"
+        >
+          ^
         </a>
       </nav>
     </main>

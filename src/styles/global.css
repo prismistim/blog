@@ -1,76 +1,63 @@
-@import "tailwindcss";
-
-@theme {
-  --font-main: "M PLUS 1 Code Variable", "monospace";
-  --font-title: "DotGothic16", "sans-serif";
+html {
+  @apply bg-neutral-950 text-neutral-300
 }
 
-@layer base {
-  * {
-    @apply font-main;
-  }
+h1, h2, h3, h4, h5 {
+  @apply font-title;
+}
 
-  html {
-    @apply bg-neutral-950 text-neutral-300
-  }
+.content {
+  @apply flex flex-col;
+}
 
-  h1, h2, h3, h4, h5 {
-    @apply font-title;
-  }
+.content > *:first-child {
+  @apply mt-0;
+}
 
-  .content {
-    @apply flex flex-col;
-  }
+.content > h2, h3, h4, h5 {
+  @apply mt-8
+}
 
-  .content > *:first-child {
-    @apply mt-0;
-  }
+.content > :not(h2, h3, h4, h5) {
+  @apply mt-4
+}
 
-  .content > h2, h3, h4, h5 {
-    @apply mt-8
-  }
+article h1 {
+  @apply text-2xl font-medium;
+}
 
-  .content > :not(h2, h3, h4, h5) {
-    @apply mt-4
-  }
+article h2 {
+  @apply text-xl font-medium border-b border-neutral-500 pb-3;
+}
 
-  article h1 {
-    @apply text-2xl font-medium;
-  }
+article h3 {
+  @apply text-lg;
+}
 
-  article h2 {
-    @apply text-xl font-medium border-b border-neutral-500 pb-3;
-  }
+article a {
+  @apply text-sm text-indigo-400 underline underline-offset-4 decoration-indigo-400 hover:decoration-indigo-600 decoration-1 mb-1 transition hover:text-indigo-600 ease-in hover:cursor-pointer break-all
+}
 
-  article h3 {
-    @apply text-lg;
-  }
+article img {
+  @apply rounded-md
+}
 
-  article a {
-    @apply text-sm text-indigo-400 underline underline-offset-4 decoration-indigo-400 hover:decoration-indigo-600 decoration-1 mb-1 transition hover:text-indigo-600 ease-in hover:cursor-pointer
-  }
+article ul {
+  @apply list-disc list-inside space-y-1 leading-8
+}
 
-  article img {
-    @apply rounded-md
-  }
+article ul > li > ul {
+  @apply mt-1 ml-4
+}
 
-  article ul {
-    @apply list-disc list-inside space-y-1 leading-8
-  }
+article ol {
+  @apply list-decimal list-inside
+}
 
-  article ul > li > ul {
-    @apply mt-1 ml-4
-  }
+article pre {
+  @apply p-4 rounded-md overflow-x-auto text-sm leading-normal
+}
 
-  article ol {
-    @apply list-decimal list-inside
-  }
-
-  article pre {
-    @apply p-4 rounded-md overflow-x-auto text-sm leading-normal
-  }
-
-  article pre > code {
-    @apply font-main
-  }
+article pre > code {
+  @apply font-main
 }

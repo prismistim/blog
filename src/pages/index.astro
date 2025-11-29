@@ -8,13 +8,13 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 
 <Default>
   <section>
-    <ul class="space-y-4">
+    <ul class="">
       {
         posts.map((post) => (
-          <li>
+          <li class="mb-4">
             <a
               href={`/article/${post.slug}/`}
-              class="block p-3 ring-1 rounded-md ring-neutral-100/30 hover:bg-neutral-300 hover:text-neutral-900 transition ease-in hover:cursor-pointer"
+              class="block p-3 rounded-md bg-neutral-900/75 ring-neutral-100/30 hover:bg-neutral-600 transition ease-in duration-100 hover:cursor-pointer"
             >
               <FormattedDate date={post.data.pubDate} format="YYYY-MM-DD" />
               <h2 class="mt-2 text-lg">{post.data.title}</h2>
