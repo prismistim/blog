@@ -11,7 +11,7 @@ export default defineConfig({
       provider: 'google',
       fonts: {
         main: 'M PLUS 2',
-        title: 'M PLUS 2'
+        monospace: 'M PLUS 1 Code'
       }
     })
   ]

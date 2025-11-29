@@ -2,10 +2,6 @@ html {
   @apply bg-neutral-950 text-neutral-300
 }
 
-h1, h2, h3, h4, h5 {
-  @apply font-title;
-}
-
 .content {
   @apply flex flex-col;
 }
@@ -55,9 +51,9 @@ article ol {
 }
 
 article pre {
-  @apply p-4 rounded-md overflow-x-auto text-sm leading-normal
+  @apply p-4 rounded-md overflow-x-auto text-sm leading-normal font-monospace
 }
 
 article pre > code {
-  @apply font-main
+  @apply font-monospace
 }
