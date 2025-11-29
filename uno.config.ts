@@ -1,11 +1,10 @@
-import { defineConfig, presetMini, presetWebFonts, transformerDirectives, presetWind4 } from 'unocss'
+import { defineConfig, presetWebFonts, transformerDirectives, presetWind4 } from 'unocss'
 
 export default defineConfig({
   transformers: [
     transformerDirectives()
   ],
   presets: [
-    // presetMini(),
     presetWind4(),
     presetWebFonts({
       provider: 'google',

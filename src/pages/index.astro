@@ -8,7 +8,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 
 <Default>
   <section>
-    <ul class="space-y-4">
+    <ul class="flex flex-col gap-4">
       {
         posts.map((post) => (
           <li>
