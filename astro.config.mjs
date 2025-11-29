@@ -9,4 +9,9 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), UnoCSS({
     injectReset: true
   })],
+  markdown: {
+    shikiConfig: {
+      theme: 'dark-plus'
+    }
+  }
 })
