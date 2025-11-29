@@ -1,7 +1,4 @@
 ---
-import '@fontsource-variable/m-plus-1-code'
-import '@fontsource/dotgothic16'
-
 import type { CollectionEntry } from 'astro:content'
 import BaseHead from '../components/BaseHead.astro'
 import Header from '../components/Header.astro'
@@ -10,7 +7,7 @@ import FormattedDate from '../components/FormattedDate.astro'
 
 type Props = CollectionEntry<'blog'>['data']
 
-const { title, description, pubDate, updatedDate, isCW } = Astro.props
+const { title, description, pubDate, updatedDate, isCW, tags } = Astro.props
 ---
 
 <html lang="ja">
@@ -24,7 +21,7 @@ const { title, description, pubDate, updatedDate, isCW } = Astro.props
       <article>
         <header class="min-h-60 p-6 rounded-md backdrop-blur-md text-neutral-100 text-shadow-lg overflow-hidden">
           <div class="absolute inset-0 -z-10 bg-[url(https://asset2.asayake.dev/thumb/danchi.webp)] bg-cover transition blur-xs"></div>
-          <h1 id="article_title" class="font-title tracking-wider text-shadow-lg">{title}</h1>
+          <h1 id="article_title" class="tracking-wider text-shadow-lg">{title}</h1>
           <dl class="mt-4">
             <dt class="">created_at</dt>
             <dd><FormattedDate date={pubDate} format='YYYY-MM-DD' /></dd>

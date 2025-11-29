@@ -20,10 +20,6 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@fontsource-variable/fira-code": "^5.2.7",
-    "@fontsource-variable/m-plus-1-code": "^5.2.9",
-    "@fontsource/dotgothic16": "^5.2.8",
-    "@fontsource/kosugi": "^5.2.8",
     "@typescript-eslint/parser": "^6.21.0",
     "@unocss/reset": "^66.5.9",
     "dayjs": "^1.11.19",
