@@ -22,13 +22,14 @@ const { title, description, pubDate, updatedDate, isCW } = Astro.props
     <Header />
     <main>
       <article>
-        <header class="pb-6 border-b border-neutral-500 border-dotted">
-          <h1 id="article_title" class="font-title">{title}</h1>
+        <header class="min-h-86 p-6 rounded-md backdrop-blur-md text-neutral-100 overflow-hidden">
+          <div class="absolute inset-0 -z-10 bg-[url(https://asset2.asayake.dev/thumb/hashi.webp)] bg-cover transition blur-xs"></div>
+          <h1 id="article_title" class="font-title font-bold">{title}</h1>
           <dl class="mt-6">
-            <dt class="text-neutral-400">created_at</dt>
+            <dt class="">created_at</dt>
             <dd><FormattedDate date={pubDate} format='YYYY-MM-DD' /></dd>
             {updatedDate && (
-                <dt class="mt-3 text-neutral-400">updated_at</dt>
+                <dt class="mt-3">updated_at</dt>
                 <dd><FormattedDate date={updatedDate} format='YYYY-MM-DD' /></dd>
               )
             }

@@ -1,16 +1,17 @@
-import { defineConfig, presetMini, presetWebFonts, transformerDirectives } from 'unocss'
+import { defineConfig, presetMini, presetWebFonts, transformerDirectives, presetWind4 } from 'unocss'
 
 export default defineConfig({
   transformers: [
     transformerDirectives()
   ],
   presets: [
-    presetMini(),
+    // presetMini(),
+    presetWind4(),
     presetWebFonts({
       provider: 'google',
       fonts: {
-        main: 'M PLUS 1 Code Variable',
-        title: 'DotGothic16'
+        main: 'M PLUS 2',
+        title: 'M PLUS 2'
       }
     })
   ]
