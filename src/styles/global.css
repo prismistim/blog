@@ -57,3 +57,7 @@ article pre {
 article pre > code {
   @apply font-monospace
 }
+
+article blockquote {
+  @apply p-4 border-l-4 border-neutral-300
+}
