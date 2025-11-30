@@ -41,7 +41,7 @@ export const articleSchema = (blog: CollectionEntry<'blog'>): WithContext<Articl
     author: person,
     datePublished: blog.data.pubDate.toISOString(),
     dateModified: (blog.data.updatedDate ?? blog.data.pubDate).toISOString(),
-    image: `${SITE_URL}snowsphere.png`,
+    image: `${SITE_URL}snowsphere.jpg`,
     isPartOf: webSiteSchema
   }
 }
