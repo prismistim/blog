@@ -2,11 +2,12 @@
 import Default from '../layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
 import FormattedDate from '../components/FormattedDate.astro'
+import { webSiteSchema } from '../lib/schema'
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).filter((post) => !post.data.isHidden)
 ---
 
-<Default>
+<Default jsonLdSchema={webSiteSchema}>
   <section>
     <ul class="flex flex-col gap-4">
       {

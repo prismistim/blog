@@ -1,15 +1,17 @@
 ---
 import '../styles/global.css'
+import type { WebSite, WithContext, Article } from 'schema-dts'
 
 interface Props {
   title: string
   description: string
   image?: string
+  jsonLdSchema?: WebSite | WithContext<Article>
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
-const { title, description, image = '/snowsphere.jpg' } = Astro.props
+const { title, description, image = '/snowsphere.jpg', jsonLdSchema } = Astro.props
 ---
 
 <!-- Global Metadata -->
@@ -38,5 +40,9 @@ const { title, description, image = '/snowsphere.jpg' } = Astro.props
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+{jsonLdSchema && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLdSchema)}></script>
+)}
 
 <script defer data-domain="blog.snowsphere.net" src="https://tracker.snowsphere.net/js/plausible.js"></script>
