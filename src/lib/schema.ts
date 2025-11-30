@@ -6,11 +6,11 @@ const SITE_URL = 'https://blog.snowsphere.net/'
 
 const person: Person = {
   '@type': 'Person',
-  '@id': SITE_ADMIN,
+  '@id': `${SITE_URL}#author`,
   name: SITE_ADMIN,
   url: SITE_URL,
   sameAs: [
-    'https:/moemoe.dev/@snosph'
+    'https://moemoe.dev/@snosph'
   ]
 }
 
@@ -25,16 +25,23 @@ export const webSiteSchema: WebSite = {
 }
 
 export const articleSchema = (blog: CollectionEntry<'blog'>): WithContext<Article> => {
+  const url = `${SITE_URL}article/${blog.slug}/`
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    '@id': blog.slug,
+    '@id': `${url}#article`,
+    url,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url
+    },
     headline: blog.data.title,
     description: blog.data.description,
-    keywords: blog.data.tags ?? [],
+    keywords: blog.data.tags?.join(', '),
     author: person,
     datePublished: blog.data.pubDate.toISOString(),
     dateModified: (blog.data.updatedDate ?? blog.data.pubDate).toISOString(),
+    image: `${SITE_URL}snowsphere.png`,
     isPartOf: webSiteSchema
   }
 }

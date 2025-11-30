@@ -4,5 +4,8 @@
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "astro-build.astro-vscode",
-  "textlint.configPath": "./"
+  "textlint.configPath": "./",
+  "cSpell.words": [
+    "Scrobbler"
+  ]
 }
