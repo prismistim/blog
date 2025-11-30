@@ -1,0 +1,28 @@
+---
+import type { Article, WithContext } from 'schema-dts' 
+
+type Props = {
+  title: string
+  description: string
+  pubDate: string
+}
+
+const { title, description, pubDate }= Astro.props
+
+const schema: WithContext<Article> = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  name: title,
+  author: {
+    '@type': 'Person',
+    name: 'snowsphere',
+    url: 'https://blog.snowsphere.net/',
+    sameAs: 'https:/moemoe.dev/@snosph'
+  },
+  datePublished: pubDate,
+  description
+}
+
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
