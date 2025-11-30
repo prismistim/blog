@@ -8,14 +8,17 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 ---
 
 <Default jsonLdSchema={webSiteSchema}>
-  <section>
+  <header class="h-64 md:h-90 p-6 rounded-md backdrop-blur-md text-neutral-100 text-shadow-lg overflow-hidden bg-neutral-900">
+    <div class="absolute w-full h-full inset-0 -z-10 bg-[url(https://asset2.asayake.dev/thumb/jihanki.webp)] bg-cover bg-bottom blur-xs"></div>
+  </header>
+  <section class="mt-6">
     <ul class="flex flex-col gap-4">
       {
         posts.map((post) => (
           <li>
             <a
               href={`/article/${post.slug}/`}
-              class="block p-3 rounded-md bg-neutral-900/75 ring-neutral-100/30 hover:bg-neutral-600 transition ease-in duration-100 hover:cursor-pointer"
+              class="block p-3 rounded-md bg-neutral-800/60 ring-neutral-100/30 hover:bg-neutral-600 transition ease-in duration-100 hover:cursor-pointer"
             >
               <FormattedDate date={post.data.pubDate} format="YYYY-MM-DD" />
               <h2 class="mt-2 text-lg">{post.data.title}</h2>
