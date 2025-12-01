@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@typescript-eslint/parser": "^6.21.0",
+    "@unocss/preset-web-fonts": "^66.5.10-beta.1",
     "@unocss/reset": "^66.5.9",
     "dayjs": "^1.11.19",
     "eslint": "^8.57.1",
