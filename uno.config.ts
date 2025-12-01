@@ -14,9 +14,9 @@ export default defineConfig({
         monospace: 'M PLUS 1 Code'
       },
       processors: createLocalFontProcessor({
-        cacheDir: 'node_modules/.cache/fonts/',
-        fontAssetsDir: 'public/assets/fonts/',
-        fontServeBaseUrl: '/assets/fonts/'
+        cacheDir: 'node_modules/.cache/fonts',
+        fontAssetsDir: 'public/assets/fonts',
+        fontServeBaseUrl: '/assets/fonts'
       })
     }),
   ]
