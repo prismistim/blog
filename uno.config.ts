@@ -8,7 +8,7 @@ export default defineConfig({
   presets: [
     presetWind4(),
     presetWebFonts({
-      provider: 'google',
+      provider: 'fontsource',
       fonts: {
         main: 'M PLUS 2',
         monospace: 'M PLUS 1 Code'
