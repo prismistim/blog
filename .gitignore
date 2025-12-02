@@ -20,7 +20,7 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-public/fonts/**
+public/assets/fonts/**
 !.gitkeep
 .vercel
 .env*.local
