@@ -15,7 +15,7 @@ export default defineConfig({
       },
       processors: createLocalFontProcessor({
         cacheDir: 'node_modules/.cache/fonts',
-        fontAssetsDir: 'public/assets/fonts',
+        fontAssetsDir: 'public/fonts',
         fontServeBaseUrl: '/fonts'
       })
     }),
