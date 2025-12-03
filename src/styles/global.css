@@ -39,7 +39,7 @@ article img {
 }
 
 article ul {
-  @apply list-disc list-inside space-y-1 leading-8
+  @apply list-disc list-inside space-y-1 leading-6
 }
 
 article ul > li > ul {
@@ -48,6 +48,10 @@ article ul > li > ul {
 
 article ol {
   @apply list-decimal list-inside
+}
+
+article p {
+  @apply leading-7
 }
 
 article pre {
