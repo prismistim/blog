@@ -15,13 +15,11 @@ const preset = presetWebFonts({
   }),
 })
 
-const uno = createGenerator({ presets: [preset] })
-
 try {
-  // Running once is enough to download the fonts and write the cached CSS
-  uno.then((u) => u.generate('', { preflights: true })).then(() => console.log('Webfont cache warmed: public/assets/fonts'))
+  const uno = await createGenerator({ presets: [preset] })
+  await uno.generate('', { preflights: true })
+  console.log('Webfont cached: public/assets/fonts')
 } catch (error) {
-  console.error('Failed to warm the webfont cache')
-  console.error(error)
+  console.error(`Failed to prefetch!: ${error}`)
   process.exit(1)
 }
