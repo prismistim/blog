@@ -6,7 +6,6 @@ tags: ['UnoCSS', '開発']
 ---
 
 ブログのガワを整えながら、中身（文章）の練習をしている者です。
-
 今回はUnoCSSを用いてフォントの管理を色々してみたというお話です。
 
 ## UnoCSSとは
@@ -31,6 +30,7 @@ Tailwind CSSは今までよく使ってきました。デフォルトで用意�
 https://t-cr.jp/article/b6r1j6c3138b9g1
 
 Tailwind CSSは、v4になってからViteのサポートがされたことにより、PostCSSを使わなくても利用できるようになっているようです。導入もかなり簡単になってますね！
+
 v4の特徴を詳しく紹介されている記事があったので貼っておきます。
 
 https://zenn.dev/miz_dev/articles/tailwind-css-v4
@@ -50,6 +50,7 @@ https://unocss.dev/presets/web-fonts
 で今回書いたconfigファイルはこんな感じです。
 
 ```ts
+// uno.config.ts
 import { defineConfig, presetWebFonts, transformerDirectives, presetWind4 } from 'unocss'
 import { createLocalFontProcessor } from '@unocss/preset-web-fonts/local'
 
@@ -78,6 +79,7 @@ export default defineConfig({
 ちなみに、`transformerDirectives()` というのは、指定した要素に対して `@apply` のあとにクラス名を書いたスタイルを用意することで、各要素にクラスを書かずに一括してスタイルを適用するために読み込んでいます。
 
 ```css
+/* style.css */
 article h1 {
   @apply text-2xl font-medium;
 }
@@ -118,9 +120,11 @@ presetWebFontsは、自前でフォントを用意することもできるので
 
 このコンフィグを書いたうえで、開発モードでサーバーを立ててみるとあっさりキャッシュされたファイルが `public/` に入りました。（設定では `public/assets/fonts` に配置するようにしているため）
 
-いい感じだなーと思って、そのままローカルでビルドを試して `astro preview` で確認してもちゃんと表示されたので、そのままVercelにデプロイしてみました。しかし、フォントは404になってしまいました。
+いい感じだなーと思って、そのままローカルでビルドを試して `astro preview` で確認してもちゃんと表示されたので、そのままVercelにデプロイしてみました。
 
-原因は、ビルド時に生成した `public/` 配下のファイルを無視して `dist/` に成果物を配置していたからでした。どうやらビルドを行う前に `public/` にファイルを置いておく必要があるようです。
+しかし、フォントは404になってしまいました。
+
+原因は、ビルド開始時の `public/` をそのまま `dist/` にコピーして配置しているからでした。どうやらビルドを行う前に `public/` にフォントファイルを置いておく必要があるようです。（もしかしたら、この問題はこのブログで利用しているAstro特有の問題かもしれないです。）
 
 ### prebuildする
 
@@ -154,6 +158,14 @@ try {
   console.error(`Failed to prefetch!: ${error}`)
   process.exit(1)
 }
+```
+
+```json
+// package.json
+"scripts": {
+  "prebuild": "node scripts/prefetchFonts.mjs",
+  "build": "astro check && astro build",
+},
 ```
 
 フォントに関して全く同じ設定を書いたうえで、 `uno.generate()` を呼び出すとフォントのキャッシュ処理だけ走り、 `public/` にフォントファイルが生成されました！
