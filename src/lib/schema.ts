@@ -1,5 +1,6 @@
 import { SITE_TITLE, SITE_DESCRIPTION, SITE_ADMIN } from '../consts'
 import type { WithContext, Article, Person, WebSite } from 'schema-dts'
+import dayjs from 'dayjs'
 import type { CollectionEntry } from 'astro:content'
 
 const SITE_URL = 'https://blog.snowsphere.net/'
@@ -24,8 +25,12 @@ export const webSiteSchema: WebSite = {
   author: person
 }
 
-export const articleSchema = (blog: CollectionEntry<'blog'>): WithContext<Article> => {
-  const url = `${SITE_URL}article/${blog.slug}/`
+export const articleSchema = (blog: CollectionEntry<'blogs'>): WithContext<Article> => {
+  const url = `${SITE_URL}article/${blog.id}/`
+
+  const createdAt = blog.data.publishedAt
+  const updatedAt = blog.data.oldUpdatedAt ?? blog.data.updatedAt ?? ''
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -37,10 +42,10 @@ export const articleSchema = (blog: CollectionEntry<'blog'>): WithContext<Articl
     },
     headline: blog.data.title,
     description: blog.data.description,
-    keywords: blog.data.tags?.join(', '),
+    keywords: blog.data.tags?.map(item => item.name).join(', '),
     author: person,
-    datePublished: blog.data.pubDate.toISOString(),
-    dateModified: (blog.data.updatedDate ?? blog.data.pubDate).toISOString(),
+    datePublished: dayjs(createdAt).toISOString(),
+    ...(updatedAt && { dateModified: dayjs(updatedAt).toISOString() }),
     image: `${SITE_URL}snowsphere.jpg`,
     isPartOf: webSiteSchema
   }

@@ -7,11 +7,10 @@ import FormattedDate from '../components/FormattedDate.astro'
 import { articleSchema } from '../lib/schema'
 
 type Props = {
-  post: CollectionEntry<'blog'>
+  post: CollectionEntry<'blogs'>
 }
 
 const { post } = Astro.props as Props
-
 ---
 
 <html lang="ja">
@@ -28,25 +27,21 @@ const { post } = Astro.props as Props
           <h1 id="article_title" class="tracking-wider text-shadow-lg">{post.data.title}</h1>
           <dl class="mt-4">
             <dt class="">created_at</dt>
-            <dd><FormattedDate date={post.data.pubDate} format='YYYY-MM-DD' /></dd>
-            {post.data.updatedDate && (
+            <dd><FormattedDate date={post.data.publishedAt ?? ''} format='YYYY-MM-DD' /></dd>
+            <!-- {post.data.updatedAt && (
                 <dt class="mt-3">updated_at</dt>
-                <dd><FormattedDate date={post.data.updatedDate} format='YYYY-MM-DD' /></dd>
+                <dd><FormattedDate date={post.data.oldUpdatedAt ?? post.data.updatedAt} format='YYYY-MM-DD' /></dd>
               )
-            }
+            } -->
           </dl>
         </header>
         {post.data.isCW ? (
           <details class="group mt-6">
             <summary class="p-6 list-none border border-amber-900 select-none hover:cursor-pointer">この記事にはネガティブな要素が含まれる可能性があります。(クリックして開く)</summary>
-            <section class="content mt-6">
-              <slot />
-            </section>
+            <slot />
           </details>
         ) : (
-          <section class="content mt-6">
-            <slot />
-          </section>
+          <slot />
         )}
       </article>
 
