@@ -1,0 +1,39 @@
+---
+import BlogPost from '../../layouts/BlogPost.astro'
+import { getBlogs, getBlogDetail } from '../../lib/microcms'
+import { marked } from 'marked'
+import { createHighlighter } from 'shiki'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blogs')
+
+  return posts.map((post) => ({
+    params: { blogId: post.id },
+    props: post
+  }))
+}
+
+const post = Astro.props
+
+const highlighter = await createHighlighter({
+  themes: ['dark-plus'],
+  langs: ['js', 'ts', 'tsx', 'json', 'css', 'astro', 'jsonc']
+})
+
+marked.use({
+  renderer: {
+    code({ text, lang }) {
+      return highlighter.codeToHtml(text, {
+        lang: lang ?? 'txt',
+        theme: 'dark-plus'
+      })
+    }
+  }
+})
+const content = marked.parse(post.data.content)
+---
+
+<BlogPost post={post.data}>
+  <section class="content mt-6" set:html={content}></section>
+</BlogPost>

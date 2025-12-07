@@ -5,18 +5,18 @@ import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import { articleSchema } from '../lib/schema'
+import type { Blog } from '../lib/microcms'
 
 type Props = {
-  post: CollectionEntry<'blog'>
+  post: Blog
 }
 
 const { post } = Astro.props as Props
-
 ---
 
 <html lang="ja">
   <head>
-    <BaseHead title={post.data.title} description={post.data.description} jsonLdSchema={articleSchema(post)} />
+    <BaseHead title={post.title} description={post.description} jsonLdSchema={articleSchema(post)} />
   </head>
 
   <body class="container mx-auto px-4 max-w-[800px] font-main">
@@ -25,28 +25,24 @@ const { post } = Astro.props as Props
       <article>
         <header class="min-h-60 p-6 rounded-md backdrop-blur-md text-neutral-100 text-shadow-lg overflow-hidden bg-neutral-900">
           <div class="absolute inset-0 -z-10 bg-[url(https://asset2.asayake.dev/thumb/danchi.webp)] bg-cover transition blur-xs"></div>
-          <h1 id="article_title" class="tracking-wider text-shadow-lg">{post.data.title}</h1>
+          <h1 id="article_title" class="tracking-wider text-shadow-lg">{post.title}</h1>
           <dl class="mt-4">
             <dt class="">created_at</dt>
-            <dd><FormattedDate date={post.data.pubDate} format='YYYY-MM-DD' /></dd>
-            {post.data.updatedDate && (
+            <dd><FormattedDate date={post.publishedAt ?? ''} format='YYYY-MM-DD' /></dd>
+            {post.updatedAt && (
                 <dt class="mt-3">updated_at</dt>
-                <dd><FormattedDate date={post.data.updatedDate} format='YYYY-MM-DD' /></dd>
+                <dd><FormattedDate date={post.oldUpdatedAt ?? post.updatedAt} format='YYYY-MM-DD' /></dd>
               )
             }
           </dl>
         </header>
-        {post.data.isCW ? (
+        {post.isCW ? (
           <details class="group mt-6">
             <summary class="p-6 list-none border border-amber-900 select-none hover:cursor-pointer">この記事にはネガティブな要素が含まれる可能性があります。(クリックして開く)</summary>
-            <section class="content mt-6">
-              <slot />
-            </section>
+            <slot />
           </details>
         ) : (
-          <section class="content mt-6">
-            <slot />
-          </section>
+          <slot />
         )}
       </article>
 

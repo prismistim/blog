@@ -1,6 +1,7 @@
 import { SITE_TITLE, SITE_DESCRIPTION, SITE_ADMIN } from '../consts'
 import type { WithContext, Article, Person, WebSite } from 'schema-dts'
-import type { CollectionEntry } from 'astro:content'
+import dayjs from 'dayjs'
+import type { Blog } from './microcms'
 
 const SITE_URL = 'https://blog.snowsphere.net/'
 
@@ -24,8 +25,12 @@ export const webSiteSchema: WebSite = {
   author: person
 }
 
-export const articleSchema = (blog: CollectionEntry<'blog'>): WithContext<Article> => {
-  const url = `${SITE_URL}article/${blog.slug}/`
+export const articleSchema = (blog: Blog): WithContext<Article> => {
+  const url = `${SITE_URL}article/${blog.id}/`
+
+  const createdAt = blog.publishedAt
+  const updatedAt = blog.oldUpdatedAt ?? blog.updatedAt ?? ''
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -35,12 +40,12 @@ export const articleSchema = (blog: CollectionEntry<'blog'>): WithContext<Articl
       '@type': 'WebPage',
       '@id': url
     },
-    headline: blog.data.title,
-    description: blog.data.description,
-    keywords: blog.data.tags?.join(', '),
+    headline: blog.title,
+    description: blog.description,
+    keywords: blog.tags?.join(', '),
     author: person,
-    datePublished: blog.data.pubDate.toISOString(),
-    dateModified: (blog.data.updatedDate ?? blog.data.pubDate).toISOString(),
+    datePublished: dayjs(createdAt).toISOString(),
+    dateModified: dayjs(updatedAt).toISOString(),
     image: `${SITE_URL}snowsphere.jpg`,
     isPartOf: webSiteSchema
   }
