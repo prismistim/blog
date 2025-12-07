@@ -9,6 +9,8 @@ interface Props {
 const { date, format = 'YYYY-MM-DD' } = Astro.props
 ---
 
-<time datetime={dayjs(date).toISOString()}>
-  {dayjs(date).format(format)}
-</time>
+{date && (
+  <time datetime={dayjs(date).toISOString()}>
+    {dayjs(date).format(format)}
+  </time>
+)}

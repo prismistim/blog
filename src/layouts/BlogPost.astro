@@ -28,11 +28,11 @@ const { post } = Astro.props as Props
           <dl class="mt-4">
             <dt class="">created_at</dt>
             <dd><FormattedDate date={post.data.publishedAt ?? ''} format='YYYY-MM-DD' /></dd>
-            {post.data.updatedAt && (
+            <!-- {post.data.updatedAt && (
                 <dt class="mt-3">updated_at</dt>
                 <dd><FormattedDate date={post.data.oldUpdatedAt ?? post.data.updatedAt} format='YYYY-MM-DD' /></dd>
               )
-            }
+            } -->
           </dl>
         </header>
         {post.data.isCW ? (

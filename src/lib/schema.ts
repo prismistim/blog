@@ -45,7 +45,7 @@ export const articleSchema = (blog: CollectionEntry<'blogs'>): WithContext<Artic
     keywords: blog.data.tags?.map(item => item.name).join(', '),
     author: person,
     datePublished: dayjs(createdAt).toISOString(),
-    dateModified: dayjs(updatedAt).toISOString(),
+    ...(updatedAt && { dateModified: dayjs(updatedAt).toISOString() }),
     image: `${SITE_URL}snowsphere.jpg`,
     isPartOf: webSiteSchema
   }
