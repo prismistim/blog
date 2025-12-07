@@ -34,6 +34,6 @@ marked.use({
 const content = marked.parse(post.data.content)
 ---
 
-<BlogPost post={post.data}>
+<BlogPost post={post}>
   <section class="content mt-6" set:html={content}></section>
 </BlogPost>
