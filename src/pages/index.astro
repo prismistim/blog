@@ -24,7 +24,7 @@ const posts = await getCollection('blogs')
               <span class="text-sm">
                 <FormattedDate date={post.data.publishedAt ?? ''} format="YYYY-MM-DD" />
               </span>
-              <h2 class="mt-1 text-lg">{post.data.title}</h2>
+              <h2 class="mt-1 text-md font-medium">{post.data.title}</h2>
               <p class="mt-1 text-sm italic text-neutral-400">{post.data.description}</p>
               <ul class="mt-1 flex flex-wrap gap-x-2 text-sm" aria-label="タグ">
                 {post.data.tags?.map((tag) => (
