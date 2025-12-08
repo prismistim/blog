@@ -1,15 +1,10 @@
 ---
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
+import dayjs from '../lib/dayjs'
 
 interface Props {
   date: string
   format?: string
 }
-
-dayjs.extend(utc)
-dayjs.extend(timezone)
 
 const { date, format = 'YYYY-MM-DD' } = Astro.props
 

@@ -1,16 +1,21 @@
 ---
 import { SITE_ADMIN } from '../consts'
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
-
-dayjs.extend(utc)
-dayjs.extend(timezone)
+import dayjs from '../lib/dayjs'
 
 const today = dayjs().tz('Asia/Tokyo')
 ---
 
 <footer class="py-6 align-middle text-center">
-  &copy;{today.format('YYYY')}
-  {SITE_ADMIN}
+  <span>
+    &copy;{today.format('YYYY')}
+    {SITE_ADMIN}
+  </span>
+  <br>
+  <a
+    href="https://github.com/prismistim/blog"
+    target="_blank"
+    class="text-xs text-neutral-400 hover:border-b border-neutral-400"
+  >
+    prismistim/blog
+  </a>
 </footer>

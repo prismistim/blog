@@ -1,12 +1,7 @@
 import { SITE_TITLE, SITE_DESCRIPTION, SITE_ADMIN } from '../consts'
 import type { WithContext, Article, Person, WebSite } from 'schema-dts'
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
 import type { CollectionEntry } from 'astro:content'
-
-dayjs.extend(utc)
-dayjs.extend(timezone)
+import dayjs from '../lib/dayjs'
 
 const SITE_URL = 'https://blog.snowsphere.net/'
 
@@ -49,8 +44,8 @@ export const articleSchema = (blog: CollectionEntry<'blogs'>): WithContext<Artic
     description: blog.data.description,
     keywords: blog.data.tags?.map(item => item.name).join(', '),
     author: person,
-    datePublished: dayjs(createdAt).tz('Asia/Tokyo').format(),
-    ...(updatedAt && { dateModified: dayjs(updatedAt).tz('Asia/Tokyo').format() }),
+    datePublished: dayjs(createdAt).format(),
+    ...(updatedAt && { dateModified: dayjs(updatedAt).format() }),
     image: `${SITE_URL}snowsphere.jpg`,
     isPartOf: webSiteSchema
   }
