@@ -14,7 +14,11 @@ html {
   @apply mt-8
 }
 
-.content > :not(h2) {
+.content > h3 {
+  @apply mt-6
+}
+
+.content > :not(h2, h3) {
   @apply mt-4
 }
 
