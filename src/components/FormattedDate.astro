@@ -1,5 +1,5 @@
 ---
-import dayjs from 'dayjs'
+import dayjs from '../lib/dayjs'
 
 interface Props {
   date: string
@@ -7,10 +7,12 @@ interface Props {
 }
 
 const { date, format = 'YYYY-MM-DD' } = Astro.props
+
+const localDate = dayjs(date).tz('Asia/Tokyo')
 ---
 
 {date && (
-  <time datetime={dayjs(date).toISOString()}>
-    {dayjs(date).format(format)}
+  <time datetime={localDate.format()}>
+    {localDate.format(format)}
   </time>
 )}
