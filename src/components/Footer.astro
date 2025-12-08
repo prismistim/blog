@@ -1,8 +1,13 @@
 ---
 import { SITE_ADMIN } from '../consts'
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 
-const today = dayjs(new Date(), 'ja-JP')
+dayjs.extend(utc)
+dayjs.extend(timezone)
+
+const today = dayjs().tz('Asia/Tokyo')
 ---
 
 <footer class="py-6 align-middle text-center">

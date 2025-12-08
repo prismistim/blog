@@ -1,16 +1,23 @@
 ---
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 
 interface Props {
   date: string
   format?: string
 }
 
+dayjs.extend(utc)
+dayjs.extend(timezone)
+
 const { date, format = 'YYYY-MM-DD' } = Astro.props
+
+const localDate = dayjs(date).tz('Asia/Tokyo')
 ---
 
 {date && (
-  <time datetime={dayjs(date).toISOString()}>
-    {dayjs(date).format(format)}
+  <time datetime={localDate.format()}>
+    {localDate.format(format)}
   </time>
 )}
