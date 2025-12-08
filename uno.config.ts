@@ -1,4 +1,4 @@
-import { defineConfig, presetWebFonts, transformerDirectives, presetWind4 } from 'unocss'
+import { defineConfig, presetWebFonts, transformerDirectives, presetWind4, presetIcons } from 'unocss'
 import { createLocalFontProcessor } from '@unocss/preset-web-fonts/local'
 
 export default defineConfig({
@@ -19,5 +19,10 @@ export default defineConfig({
         fontServeBaseUrl: '/assets/fonts',
       })
     }),
+    presetIcons({
+      collections: {
+        mynaui: () => import('@iconify-json/mynaui/icons.json').then(i => i.default)
+      }
+    })
   ]
 })

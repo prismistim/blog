@@ -2,7 +2,7 @@
 import { SITE_TITLE } from '../consts'
 ---
 
-<nav class="py-5 flex justify-between">
+<nav class="py-5 flex justify-between items-center">
   <h2 class="text-md font-main">
     <a
       href="/"
@@ -11,11 +11,21 @@ import { SITE_TITLE } from '../consts'
       {SITE_TITLE}
     </a>
   </h2>
-  <a
-    href="https://portal.snowsphere.net/"
-    target="_blank"
-    class="text-neutral-400/75 hover:text-neutral-100 transition ease-in duration-100"
-  >
-    portal (links)
-  </a>
+  <div class="flex gap-x-4">
+    <a
+      href="/rss.xml"
+      aria-label="RSS"
+      class="text-neutral-400/75 text-2xl hover:text-neutral-100 transition ease-in duration-100"
+    >
+      <div class="i-mynaui-rss"></div>
+    </a>
+    <a
+      href="https://portal.snowsphere.net/"
+      target="_blank"
+      aria-label="portal (links)"
+      class="text-neutral-400/75 text-2xl hover:text-neutral-100 transition ease-in duration-100"
+    >
+      <div class="i-mynaui-link-two"></div>
+    </a>
+  </div>
 </nav>

@@ -10,24 +10,28 @@ html {
   @apply mt-0;
 }
 
-.content > h2, h3, h4, h5 {
+.content > h2 {
   @apply mt-8
 }
 
-.content > :not(h2, h3, h4, h5) {
+.content > h3 {
+  @apply mt-6
+}
+
+.content > :not(h2, h3) {
   @apply mt-4
 }
 
 article h1 {
-  @apply text-2xl font-medium;
+  @apply text-xl font-medium;
 }
 
 article h2 {
-  @apply text-xl font-medium border-b border-neutral-500 pb-3;
+  @apply text-lg font-medium border-b border-neutral-500 pb-3;
 }
 
 article h3 {
-  @apply text-lg;
+  @apply text-lg font-medium;
 }
 
 article a {
