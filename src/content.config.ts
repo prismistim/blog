@@ -19,10 +19,7 @@ const microCMSLoader = (endpoint: string) => {
   return async () => {
     try {
       const res = await client.getAllContents({
-        endpoint,
-        queries: {
-          orders: '-publishedAt'
-        }
+        endpoint
       })
 
       return res
