@@ -10,9 +10,7 @@ dayjs.extend(isSameOrAfter)
 
 const posts = await getCollection('blogs') 
 
-const sorted = posts.sort((a, b) => {
-  return dayjs(b.data.publishedAt).isSameOrAfter(a.data.publishedAt) ? 1 : -1;
-})
+const sorted = [...posts].sort((a, b) => dayjs(b.data.publishedAt).diff(a.data.publishedAt))
 ---
 
 <Default jsonLdSchema={webSiteSchema}>

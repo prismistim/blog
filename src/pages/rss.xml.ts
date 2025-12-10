@@ -3,15 +3,10 @@ import { getCollection } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { createMarkdown } from 'safe-marked'
 import dayjs from '../lib/dayjs'
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
-
-dayjs.extend(isSameOrAfter)
 
 export async function GET() {
 	const posts = await getCollection('blogs')
-	const sorted = posts.sort((a, b) => {
-		return dayjs(b.data.publishedAt).isSameOrAfter(a.data.publishedAt) ? 1 : -1;
-	})
+	const sorted = [...posts].sort((a, b) => dayjs(b.data.publishedAt).diff(a.data.publishedAt))
 
 	const markdown = createMarkdown()
 
