@@ -3,8 +3,16 @@ import Default from '../layouts/BaseLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import { webSiteSchema } from '../lib/schema'
 import { getCollection } from 'astro:content'
+import dayjs from '../lib/dayjs'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+
+dayjs.extend(isSameOrAfter)
 
 const posts = await getCollection('blogs') 
+
+const sorted = posts.sort((a, b) => {
+  return dayjs(b.data.publishedAt).isSameOrAfter(a.data.publishedAt) ? 1 : -1;
+})
 ---
 
 <Default jsonLdSchema={webSiteSchema}>
@@ -14,7 +22,7 @@ const posts = await getCollection('blogs')
   <section class="mt-6">
     <ul class="flex flex-col gap-4">
       {
-        posts.map((post) => (
+        sorted.map((post) => (
           <li>
             <a
               href={`/article/${post.id}/`}
