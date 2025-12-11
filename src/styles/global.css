@@ -1,5 +1,5 @@
 html {
-  @apply bg-neutral-950 text-neutral-300/90
+  @apply bg-neutral-950 text-neutral-300
 }
 
 .content {
@@ -10,7 +10,7 @@ html {
   @apply mt-0;
 }
 
-.content > h2, h3 {
+.content > h2, .content > h3 {
   @apply mt-6
 }
 
