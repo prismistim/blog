@@ -1,5 +1,5 @@
 html {
-  @apply bg-neutral-950 text-neutral-300
+  @apply bg-neutral-950 text-neutral-300/90
 }
 
 .content {
@@ -23,7 +23,7 @@ html {
 }
 
 article h1 {
-  @apply text-xl font-medium;
+  @apply text-xl font-light;
 }
 
 article h2 {
@@ -55,7 +55,7 @@ article ol {
 }
 
 article p {
-  @apply leading-7
+  @apply leading-7 text-base
 }
 
 article pre {

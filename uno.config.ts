@@ -10,7 +10,7 @@ export default defineConfig({
     presetWebFonts({
       provider: 'fontsource',
       fonts: {
-        main: 'M PLUS 2',
+        main: 'Murecho',
         monospace: 'M PLUS 1 Code'
       },
       processors: createLocalFontProcessor({
