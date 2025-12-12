@@ -22,11 +22,11 @@ const { post } = Astro.props as Props
     <Header />
     <main>
       <article>
-        <header class="min-h-60 p-6 rounded-md backdrop-blur-md text-neutral-100 text-shadow-lg overflow-hidden bg-neutral-900">
-          <div class="absolute inset-0 -z-10 bg-[url(https://asset2.asayake.dev/thumb/danchi.webp)] bg-cover transition blur-xs opacity-85"></div>
+        <header class="min-h-60 md:min-h-80 p-6 rounded-md backdrop-blur-xl text-neutral-100 text-shadow-lg overflow-hidden bg-neutral-900">
+          <div class="absolute inset-0 -z-10 bg-[url(https://asset2.asayake.dev/thumb/danchi.webp)] bg-cover transition blur-xs opacity-75"></div>
           <h1 id="article_title" class="tracking-wider text-shadow-lg">{post.data.title}</h1>
-          <dl class="mt-4">
-            <dt class="">created_at</dt>
+          <dl class="mt-4 inline-block">
+            <dt class="text-sm text-neutral-100/80">created_at</dt>
             <dd><FormattedDate date={post.data.publishedAt ?? ''} format='YYYY-MM-DD' /></dd>
             <!-- {post.data.updatedAt && (
                 <dt class="mt-3">updated_at</dt>

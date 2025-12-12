@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "prebuild": "node scripts/prefetchFonts.mjs",
+    "prebuild": "tsx scripts/prefetchFonts.ts",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
@@ -40,6 +40,7 @@
     "textlint-filter-rule-comments": "^1.2.2",
     "textlint-rule-preset-ja-spacing": "^2.4.3",
     "textlint-rule-preset-ja-technical-writing": "^12.0.2",
+    "tsx": "^4.21.0",
     "unocss": "^66.5.10"
   }
 }

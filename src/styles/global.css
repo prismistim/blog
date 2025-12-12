@@ -10,11 +10,7 @@ html {
   @apply mt-0;
 }
 
-.content > h2 {
-  @apply mt-8
-}
-
-.content > h3 {
+.content > h2, .content > h3 {
   @apply mt-6
 }
 
@@ -23,7 +19,7 @@ html {
 }
 
 article h1 {
-  @apply text-xl font-medium;
+  @apply text-xl font-light;
 }
 
 article h2 {
@@ -55,7 +51,7 @@ article ol {
 }
 
 article p {
-  @apply leading-7
+  @apply leading-7 text-base
 }
 
 article pre {
