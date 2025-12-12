@@ -1,8 +1,7 @@
 import { defineConfig, presetWebFonts, transformerDirectives, presetWind4, presetIcons } from 'unocss'
 import { createLocalFontProcessor } from '@unocss/preset-web-fonts/local'
-import type { WebFontsOptions } from '@unocss/preset-web-fonts'
 
-export const fontConfig: WebFontsOptions = {
+export const fontConfig = {
   provider: 'fontsource',
   fonts: {
     main: 'M PLUS Rounded 1c',
