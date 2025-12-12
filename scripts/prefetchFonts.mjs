@@ -1,19 +1,8 @@
 import { createGenerator } from 'unocss'
 import presetWebFonts from '@unocss/preset-web-fonts'
-import { createLocalFontProcessor } from '@unocss/preset-web-fonts/local'
+import { fontConfig } from '../uno.config'
 
-const preset = presetWebFonts({
-  provider: 'fontsource',
-  fonts: {
-    main: 'Murecho',
-    monospace: 'M PLUS 1 Code',
-  },
-  processors: createLocalFontProcessor({
-    cacheDir: 'node_modules/.cache/fonts',
-    fontAssetsDir: 'public/assets/fonts',
-    fontServeBaseUrl: '/assets/fonts',
-  }),
-})
+const preset = presetWebFonts(fontConfig)
 
 try {
   const uno = await createGenerator({ presets: [preset] })
