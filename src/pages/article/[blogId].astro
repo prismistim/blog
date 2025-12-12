@@ -28,7 +28,7 @@ const markdown = createMarkdown({
         renderer: {
           code(code, lang, _escaped) {
             return highlighter.codeToHtml(code, {
-              lang: lang ?? 'txt',
+              lang: lang ?? 'text',
               theme: 'dark-plus'
             })
           }
