@@ -5,8 +5,8 @@ import type { WebFontsOptions } from '@unocss/preset-web-fonts'
 export const fontConfig: WebFontsOptions = {
   provider: 'fontsource',
   fonts: {
-    main: 'M PLUS Rounded 1c',
-    monospace: 'M PLUS 1 Code'
+    main: ['Ubuntu Sans', 'IBM Plex Sans JP'],
+    monospace: 'M PLUS 1 Code',
   },
   processors: createLocalFontProcessor({
     cacheDir: 'node_modules/.cache/fonts',
