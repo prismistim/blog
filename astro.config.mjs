@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import UnoCSS from 'unocss/astro'
+import vercel from '@astrojs/vercel'
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,5 +14,10 @@ export default defineConfig({
     shikiConfig: {
       theme: 'dark-plus'
     }
-  }
+  },
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
 })
