@@ -3,7 +3,7 @@ html {
 }
 
 .content {
-  @apply flex flex-col;
+  /* @apply flex flex-col; */
 }
 
 .content > *:first-child {
@@ -11,15 +11,15 @@ html {
 }
 
 .content > h2, .content > h3 {
+  @apply mt-10
+}
+
+.content > img {
+  @apply my-10
+}
+
+.content > :not(h2, h3, img) {
   @apply mt-6
-}
-
-.content > :not(h2, h3) {
-  @apply mt-4
-}
-
-article h1 {
-  @apply text-xl font-light;
 }
 
 article h2 {
@@ -40,6 +40,10 @@ article img {
 
 article ul {
   @apply list-disc list-inside space-y-1 leading-6
+}
+
+article li{
+  @apply mt-2
 }
 
 article ul > li > ul {
