@@ -2,10 +2,6 @@ html {
   @apply bg-neutral-950 text-neutral-300
 }
 
-.content {
-  /* @apply flex flex-col; */
-}
-
 .content > *:first-child {
   @apply mt-0;
 }
