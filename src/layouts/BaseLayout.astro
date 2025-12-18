@@ -6,8 +6,6 @@ import Footer from '../components/Footer.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
 import type { WebSite, Article, WithContext } from 'schema-dts'
 
-import Analytics from '@vercel/analytics/astro'
-
 type Props = {
   jsonLdSchema?: WebSite | WithContext<Article>
 }
@@ -26,6 +24,5 @@ const { jsonLdSchema } = Astro.props
       <slot />
     </main>
     <Footer />
-    <Analytics />
   </body>
 </html>

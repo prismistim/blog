@@ -5,7 +5,6 @@ import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import { articleSchema } from '../lib/schema'
-import Analytics from '@vercel/analytics/astro'
 
 type Props = {
   post: CollectionEntry<'blogs'>
@@ -64,6 +63,5 @@ const { post } = Astro.props as Props
       </nav>
     </main>
     <Footer />
-    <Analytics />
   </body>
 </html>
