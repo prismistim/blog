@@ -1,5 +1,5 @@
-import { defineCollection, z } from "astro:content"
-import { createClient } from "microcms-js-sdk"
+import { defineCollection, z } from 'astro:content'
+import { createClient } from 'microcms-js-sdk'
 
 export type Tag = {
   name: string
@@ -8,7 +8,6 @@ export type Tag = {
 export type Categories = {
   title: string
 }
-
 
 const client = createClient({
   serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
@@ -46,9 +45,11 @@ const blogs = defineCollection({
     isCW: z.boolean(),
     isHidden: z.boolean(),
     oldUpdatedAt: z.string().optional(),
-    tags: z.array(z.object({
-      name: z.string()
-    })),
+    tags: z.array(
+      z.object({
+        name: z.string()
+      })
+    ),
     ...dataFields
   })
 })

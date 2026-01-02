@@ -1,14 +1,16 @@
 ---
-import Default from '../layouts/BaseLayout.astro'
-import FormattedDate from '../components/FormattedDate.astro'
-import { webSiteSchema } from '../lib/schema'
 import { getCollection } from 'astro:content'
-import dayjs from '../lib/dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import FormattedDate from '../components/FormattedDate.astro'
+import Default from '../layouts/BaseLayout.astro'
+import dayjs from '../lib/dayjs'
+import { webSiteSchema } from '../lib/schema'
+
+export const prerender = true
 
 dayjs.extend(isSameOrAfter)
 
-const posts = await getCollection('blogs') 
+const posts = await getCollection('blogs')
 
 const sorted = [...posts].sort((a, b) => dayjs(b.data.publishedAt).diff(a.data.publishedAt))
 ---

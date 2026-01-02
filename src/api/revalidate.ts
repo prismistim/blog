@@ -13,7 +13,7 @@ export const POST: APIRoute = async ({ url, request }) => {
   const revalidateTargets = ['/']
 
   if (postId) {
-    revalidateTargets.push(`/article/${postId}`)
+    revalidateTargets.push(`/article/${postId}/`)
   }
 
   const results = await Promise.all(

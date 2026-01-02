@@ -24,7 +24,8 @@
 		"formatter": {
 			"quoteStyle": "single",
 			"semicolons": "asNeeded",
-			"lineWidth": 180
+			"lineWidth": 180,
+			"trailingCommas": "none"
 		}
 	},
 	"assist": {
