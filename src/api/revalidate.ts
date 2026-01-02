@@ -1,8 +1,8 @@
-import type { APIRoute } from "astro"
+import type { APIRoute } from 'astro'
 
 export const POST: APIRoute = async ({ url, request }) => {
-  const apiKey = request.headers.get('x-api-key')
-  
+  const apiKey = request.headers.get('x-api-key') ?? ''
+
   if (apiKey !== import.meta.env.REVALIDATE_REQUEST_KEY) {
     return new Response('Unauthorized', { status: 401 })
   }
@@ -17,7 +17,7 @@ export const POST: APIRoute = async ({ url, request }) => {
   }
 
   const results = await Promise.all(
-    revalidateTargets.map((path) => 
+    revalidateTargets.map((path) =>
       fetch(`${url.origin}${path}`, {
         method: 'HEAD',
         headers: {
@@ -27,6 +27,6 @@ export const POST: APIRoute = async ({ url, request }) => {
     )
   )
 
-  const isSuccess = results.every(res => res.headers.get('x-vercel-cache') === 'REVALIDATED')
+  const isSuccess = results.every((res) => res.headers.get('x-vercel-cache') === 'REVALIDATED')
   return new Response(JSON.stringify({ result: isSuccess }))
 }

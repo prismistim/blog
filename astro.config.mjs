@@ -18,7 +18,6 @@ export default defineConfig({
   },
   output: 'server',
   adapter: vercel({
-    edgeMiddleware: true,
     isr: {
       bypassToken: import.meta.env.VERCEL_REVALIDATE_TOKEN,
       exclude: [/^\/api\/.+/]
