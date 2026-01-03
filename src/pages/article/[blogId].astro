@@ -4,6 +4,8 @@ import { createHighlighter } from 'shiki'
 import { getCollection } from 'astro:content'
 import { createMarkdown } from 'safe-marked'
 
+export const prerender = true
+
 export async function getStaticPaths() {
   const posts = await getCollection('blogs')
 
