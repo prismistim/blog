@@ -1,6 +1,6 @@
-import { defineConfig, presetWebFonts, transformerDirectives, presetWind4, presetIcons } from 'unocss'
-import { createLocalFontProcessor } from '@unocss/preset-web-fonts/local'
 import type { WebFontsOptions } from '@unocss/preset-web-fonts'
+import { createLocalFontProcessor } from '@unocss/preset-web-fonts/local'
+import { defineConfig, presetIcons, presetWebFonts, presetWind4, transformerDirectives } from 'unocss'
 
 export const fontConfig: WebFontsOptions = {
   provider: 'fontsource',
@@ -12,20 +12,18 @@ export const fontConfig: WebFontsOptions = {
     cacheDir: 'node_modules/.cache/fonts',
     fontAssetsDir: 'public/assets/fonts',
     fontServeBaseUrl: '/assets/fonts',
-  })
+  }),
 }
 
 export default defineConfig({
-  transformers: [
-    transformerDirectives()
-  ],
+  transformers: [transformerDirectives()],
   presets: [
     presetWind4(),
     presetWebFonts(fontConfig),
     presetIcons({
       collections: {
-        mynaui: () => import('@iconify-json/mynaui/icons.json').then(i => i.default)
-      }
-    })
-  ]
+        mynaui: () => import('@iconify-json/mynaui/icons.json').then((i) => i.default),
+      },
+    }),
+  ],
 })

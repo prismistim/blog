@@ -1,5 +1,5 @@
-import { createGenerator } from 'unocss'
 import presetWebFonts from '@unocss/preset-web-fonts'
+import { createGenerator } from 'unocss'
 import { fontConfig } from '../uno.config.js'
 
 const preset = presetWebFonts(fontConfig)

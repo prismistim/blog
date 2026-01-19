@@ -10,11 +10,7 @@ html {
   @apply mt-10
 }
 
-.content > img {
-  @apply my-10
-}
-
-.content > :not(h2, h3, img) {
+.content > :not(h2, h3) {
   @apply mt-6
 }
 

@@ -8,6 +8,8 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
+    "lint": "biome check",
+    "lint:fix": "biome check --write ./",
     "lint:text": "textlint \"./src/content/blog/*.mdx\" -f pretty-error",
     "lint:text:fix": "textlint \"./src/content/blog/*.mdx\" --fix",
     "astro": "astro"

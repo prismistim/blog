@@ -1,6 +1,6 @@
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_ADMIN } from '../consts'
-import type { WithContext, Article, Person, WebSite } from 'schema-dts'
 import type { CollectionEntry } from 'astro:content'
+import type { Article, Person, WebSite, WithContext } from 'schema-dts'
+import { SITE_ADMIN, SITE_DESCRIPTION, SITE_TITLE } from '../consts'
 import dayjs from '../lib/dayjs'
 
 const SITE_URL = 'https://blog.snowsphere.net/'
@@ -10,9 +10,7 @@ const person: Person = {
   '@id': `${SITE_URL}#author`,
   name: SITE_ADMIN,
   url: SITE_URL,
-  sameAs: [
-    'https://moemoe.dev/@snosph'
-  ]
+  sameAs: ['https://moemoe.dev/@snosph'],
 }
 
 export const webSiteSchema: WebSite = {
@@ -22,7 +20,7 @@ export const webSiteSchema: WebSite = {
   description: SITE_DESCRIPTION,
   url: SITE_URL,
   inLanguage: 'ja',
-  author: person
+  author: person,
 }
 
 export const articleSchema = (blog: CollectionEntry<'blogs'>): WithContext<Article> => {
@@ -38,15 +36,15 @@ export const articleSchema = (blog: CollectionEntry<'blogs'>): WithContext<Artic
     url,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': url
+      '@id': url,
     },
     headline: blog.data.title,
     description: blog.data.description,
-    keywords: blog.data.tags?.map(item => item.name).join(', '),
+    keywords: blog.data.tags?.map((item) => item.name).join(', '),
     author: person,
     datePublished: dayjs(createdAt).format(),
     ...(updatedAt && { dateModified: dayjs(updatedAt).format() }),
     image: `${SITE_URL}snowsphere.jpg`,
-    isPartOf: webSiteSchema
+    isPartOf: webSiteSchema,
   }
 }
