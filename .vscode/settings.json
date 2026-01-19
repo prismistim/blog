@@ -5,7 +5,8 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "astro-build.astro-vscode",
   "textlint.configPath": "./",
-  "cSpell.words": [
-    "Scrobbler"
-  ]
+  "cSpell.words": ["Scrobbler"],
+  "[astro]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }

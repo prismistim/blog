@@ -1,11 +1,10 @@
 ---
+import SpeedInsights from '@vercel/speed-insights/astro'
+import type { Article, WebSite, WithContext } from 'schema-dts'
 import BaseHead from '../components/BaseHead.astro'
-import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
-import SpeedInsights from "@vercel/speed-insights/astro"
-
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
-import type { WebSite, Article, WithContext } from 'schema-dts'
+import Header from '../components/Header.astro'
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts'
 
 type Props = {
   jsonLdSchema?: WebSite | WithContext<Article>

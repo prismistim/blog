@@ -1,6 +1,6 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-export const SITE_TITLE = 'blog.snowsphere.net';
-export const SITE_DESCRIPTION = '駄文を書いてます';
-export const SITE_ADMIN = 'snowsphere';
+export const SITE_TITLE = 'blog.snowsphere.net'
+export const SITE_DESCRIPTION = '駄文を書いてます'
+export const SITE_ADMIN = 'snowsphere'
