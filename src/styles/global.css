@@ -27,7 +27,7 @@ article a {
 }
 
 article img {
-  @apply rounded-md
+  @apply rounded-md block mx-auto;
 }
 
 article ul {
