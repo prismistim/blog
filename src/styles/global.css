@@ -1,17 +1,18 @@
 html {
-  @apply bg-neutral-950 text-neutral-300
+  @apply bg-neutral-950 text-neutral-300;
 }
 
 .content > *:first-child {
   @apply mt-0;
 }
 
-.content > h2, .content > h3 {
-  @apply mt-10
+.content > h2,
+.content > h3 {
+  @apply mt-10;
 }
 
 .content > :not(h2, h3) {
-  @apply mt-6
+  @apply mt-6;
 }
 
 article h2 {
@@ -23,7 +24,7 @@ article h3 {
 }
 
 article a {
-  @apply text-indigo-400 underline underline-offset-4 decoration-indigo-400 hover:decoration-indigo-600 decoration-1 mb-1 transition hover:text-indigo-600 ease-in hover:cursor-pointer break-all
+  @apply text-indigo-400 underline underline-offset-4 decoration-indigo-400 hover:decoration-indigo-600 decoration-1 mb-1 transition hover:text-indigo-600 ease-in hover:cursor-pointer break-all;
 }
 
 article img {
@@ -31,33 +32,33 @@ article img {
 }
 
 article ul {
-  @apply list-disc list-inside space-y-1 leading-6
+  @apply list-disc list-inside space-y-1 leading-6;
 }
 
-article li{
-  @apply mt-2
+article li {
+  @apply mt-2;
 }
 
 article ul > li > ul {
-  @apply mt-1 ml-4
+  @apply mt-1 ml-4;
 }
 
 article ol {
-  @apply list-decimal list-inside
+  @apply list-decimal list-inside;
 }
 
 article p {
-  @apply leading-7 text-base
+  @apply leading-7 text-base;
 }
 
 article pre {
-  @apply p-4 rounded-md overflow-x-auto text-sm leading-normal font-monospace
+  @apply p-4 rounded-md overflow-x-auto text-sm leading-normal font-monospace;
 }
 
 article pre > code {
-  @apply font-monospace
+  @apply font-monospace;
 }
 
 article blockquote {
-  @apply p-4 border-l-4 border-neutral-300
+  @apply p-4 border-l-4 border-neutral-300;
 }
