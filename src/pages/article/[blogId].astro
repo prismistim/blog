@@ -34,11 +34,10 @@ const markdown = createMarkdown({
               theme: 'dark-plus',
             })
           },
-          image(href, title, text) {
+          image(href, _title, text) {
             const payload = encodeURIComponent(
               JSON.stringify({
                 href,
-                title,
                 text,
               }),
             )
@@ -55,10 +54,12 @@ const content = markdown(post.data.content)
 const imageTokenRegex = /__ASTRO_IMAGE__([\s\S]*?)__ASTRO_IMAGE__/g
 const contentParts: Array<
   | { type: 'html'; value: string }
-  | { type: 'image'; href: string; title?: string | null; text?: string | null }
+  | { type: 'image'; href: string; alt?: string | null; imageIndex: number }
 > = []
 
 let lastIndex = 0
+let imageIndex = 0
+
 for (const match of content.matchAll(imageTokenRegex)) {
   const index = match.index ?? 0
   const payload = match[1] ?? ''
@@ -71,17 +72,18 @@ for (const match of content.matchAll(imageTokenRegex)) {
   try {
     const data = JSON.parse(decodeURIComponent(payload)) as {
       href?: string
-      title?: string | null
       text?: string | null
     }
 
-    if (data.href) {
+    if (data && typeof data.href === 'string' && data.href) {
       contentParts.push({
         type: 'image',
         href: data.href,
-        title: data.title,
-        text: data.text,
+        alt: data.text,
+        imageIndex
       })
+
+      imageIndex++
     }
   } catch {
     if (payload) {
@@ -103,15 +105,15 @@ if (tail) {
 
 <BlogPost post={post}>
   <section class="content mt-6">
-    {contentParts.map((part) =>
+    {contentParts.map((part, index) =>
       part.type === 'image' ? (
         <Image
-          alt={part.text ?? ''}
+          alt={part.alt ?? ''}
           decoding="async"
           inferSize
-          loading="lazy"
+          priority={part.imageIndex === 0}
+          loading={part.imageIndex < 3 ? 'eager' : 'lazy'}
           src={part.href}
-          title={part.title ?? undefined}
         />
       ) : (
         <Fragment set:html={part.value} />
