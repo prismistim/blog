@@ -5,7 +5,7 @@ import { createMarkdown } from 'safe-marked'
 import BlogPost from '../../layouts/BlogPost.astro'
 import { highlighter } from '../../lib/shiki'
 
-type ContentParts = Array<{ type: 'html'; value: string } | { type: 'image'; href: string; alt?: string | null; imageIndex: number }>
+type ContentParts = Array<{ type: 'html'; value: string } | { type: 'image'; href: string; alt?: string | null; imageIndex: number; isPortrait: boolean }>
 
 export async function getStaticPaths() {
   const posts = await getCollection('blogs')
@@ -53,6 +53,16 @@ const contentParts: ContentParts = []
 let lastIndex = 0
 let imageIndex = 0
 
+
+const getIsPortrait = (href: string) => {
+  // hの指定をしていれば縦長の画像とする
+  try {
+    return new URL(href).searchParams.has('h')
+  } catch {
+    return false
+  }
+} 
+
 for (const match of content.matchAll(imageTokenRegex)) {
   const index = match.index ?? 0
   const payload = match[1] ?? ''
@@ -74,6 +84,7 @@ for (const match of content.matchAll(imageTokenRegex)) {
         href: data.href,
         alt: data.text,
         imageIndex,
+        isPortrait: getIsPortrait(data.href)
       })
 
       imageIndex++
@@ -98,7 +109,9 @@ if (tail) {
           decoding="async"
           inferSize
           priority={part.imageIndex === 0}
-          loading={part.imageIndex < 3 ? 'eager' : 'lazy'}
+          loading={part.imageIndex < 2 ? 'eager' : 'lazy'}
+          sizes="(max-width: 752px) 100vw, 752px"
+          widths={!part.isPortrait ? [800, 1200, 1600] : undefined}
           src={part.href}
         />
       ) : (
