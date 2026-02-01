@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import { getCollection } from 'astro:content'
 import { createMarkdown } from 'safe-marked'
 import { createHighlighter } from 'shiki'
@@ -20,6 +21,8 @@ const highlighter = await createHighlighter({
   langs: ['js', 'ts', 'tsx', 'json', 'css', 'astro', 'jsonc'],
 })
 
+const IMAGE_TOKEN = '__ASTRO_IMAGE__'
+
 const markdown = createMarkdown({
   marked: {
     onInit(marked) {
@@ -31,6 +34,17 @@ const markdown = createMarkdown({
               theme: 'dark-plus',
             })
           },
+          image(href, title, text) {
+            const payload = encodeURIComponent(
+              JSON.stringify({
+                href,
+                title,
+                text,
+              }),
+            )
+
+            return `${IMAGE_TOKEN}${payload}${IMAGE_TOKEN}`
+          },
         },
       })
     },
@@ -38,8 +52,70 @@ const markdown = createMarkdown({
 })
 
 const content = markdown(post.data.content)
+const imageTokenRegex = /__ASTRO_IMAGE__([\s\S]*?)__ASTRO_IMAGE__/g
+const contentParts: Array<
+  | { type: 'html'; value: string }
+  | { type: 'image'; href: string; title?: string | null; text?: string | null }
+> = []
+
+let lastIndex = 0
+for (const match of content.matchAll(imageTokenRegex)) {
+  const index = match.index ?? 0
+  const payload = match[1] ?? ''
+  const htmlChunk = content.slice(lastIndex, index)
+
+  if (htmlChunk) {
+    contentParts.push({ type: 'html', value: htmlChunk })
+  }
+
+  try {
+    const data = JSON.parse(decodeURIComponent(payload)) as {
+      href?: string
+      title?: string | null
+      text?: string | null
+    }
+
+    if (data.href) {
+      contentParts.push({
+        type: 'image',
+        href: data.href,
+        title: data.title,
+        text: data.text,
+      })
+    }
+  } catch {
+    if (payload) {
+      contentParts.push({
+        type: 'html',
+        value: `${IMAGE_TOKEN}${payload}${IMAGE_TOKEN}`,
+      })
+    }
+  }
+
+  lastIndex = index + match[0].length
+}
+
+const tail = content.slice(lastIndex)
+if (tail) {
+  contentParts.push({ type: 'html', value: tail })
+}
 ---
 
 <BlogPost post={post}>
-  <section class="content mt-6" set:html={content}></section>
+  <section class="content mt-6">
+    {contentParts.map((part) =>
+      part.type === 'image' ? (
+        <Image
+          alt={part.text ?? ''}
+          decoding="async"
+          inferSize
+          loading="lazy"
+          src={part.href}
+          title={part.title ?? undefined}
+        />
+      ) : (
+        <Fragment set:html={part.value} />
+      ),
+    )}
+  </section>
 </BlogPost>
