@@ -7,6 +7,9 @@ import UnoCSS from 'unocss/astro'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://blog.snowsphere.net',
+  image: {
+    domains: ['images.microcms-assets.io'],
+  },
   integrations: [
     mdx(),
     sitemap(),

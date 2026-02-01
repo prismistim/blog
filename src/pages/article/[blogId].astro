@@ -1,8 +1,11 @@
 ---
+import { Image } from 'astro:assets'
 import { getCollection } from 'astro:content'
 import { createMarkdown } from 'safe-marked'
-import { createHighlighter } from 'shiki'
 import BlogPost from '../../layouts/BlogPost.astro'
+import { highlighter } from '../../lib/shiki'
+
+type ContentParts = Array<{ type: 'html'; value: string } | { type: 'image'; href: string; alt?: string | null; imageIndex: number; isPortrait: boolean }>
 
 export async function getStaticPaths() {
   const posts = await getCollection('blogs')
@@ -14,11 +17,7 @@ export async function getStaticPaths() {
 }
 
 const post = Astro.props
-
-const highlighter = await createHighlighter({
-  themes: ['dark-plus'],
-  langs: ['js', 'ts', 'tsx', 'json', 'css', 'astro', 'jsonc'],
-})
+const IMAGE_TOKEN = '__ASTRO_IMAGE__'
 
 const markdown = createMarkdown({
   marked: {
@@ -31,6 +30,16 @@ const markdown = createMarkdown({
               theme: 'dark-plus',
             })
           },
+          image(href, _title, text) {
+            const payload = encodeURIComponent(
+              JSON.stringify({
+                href,
+                text,
+              }),
+            )
+
+            return `${IMAGE_TOKEN}${payload}${IMAGE_TOKEN}`
+          },
         },
       })
     },
@@ -38,8 +47,76 @@ const markdown = createMarkdown({
 })
 
 const content = markdown(post.data.content)
+const imageTokenRegex = /__ASTRO_IMAGE__([\s\S]*?)__ASTRO_IMAGE__/g
+const contentParts: ContentParts = []
+
+let lastIndex = 0
+let imageIndex = 0
+
+
+const getIsPortrait = (href: string) => {
+  // hの指定をしていれば縦長の画像とする
+  try {
+    return new URL(href).searchParams.has('h')
+  } catch {
+    return false
+  }
+} 
+
+for (const match of content.matchAll(imageTokenRegex)) {
+  const index = match.index ?? 0
+  const payload = match[1] ?? ''
+  const htmlChunk = content.slice(lastIndex, index) // 画像までのコンテンツを追加
+
+  if (htmlChunk) {
+    contentParts.push({ type: 'html', value: htmlChunk })
+  }
+
+  try {
+    const data = JSON.parse(decodeURIComponent(payload)) as {
+      href?: string
+      text?: string | null
+    }
+
+    if (data && typeof data.href === 'string' && data.href) {
+      contentParts.push({
+        type: 'image',
+        href: data.href,
+        alt: data.text,
+        imageIndex,
+        isPortrait: getIsPortrait(data.href)
+      })
+
+      imageIndex++
+    }
+  } catch {}
+
+  lastIndex = index + match[0].length
+}
+
+const tail = content.slice(lastIndex)
+if (tail) {
+  contentParts.push({ type: 'html', value: tail })
+}
 ---
 
 <BlogPost post={post}>
-  <section class="content mt-6" set:html={content}></section>
+  <section class="content mt-6">
+    {contentParts.map((part) =>
+      part.type === 'image' ? (
+        <Image
+          alt={part.alt ?? ''}
+          decoding="async"
+          inferSize
+          priority={part.imageIndex === 0}
+          loading={part.imageIndex < 2 ? 'eager' : 'lazy'}
+          sizes="(max-width: 752px) 100vw, 752px"
+          widths={!part.isPortrait ? [800, 1200, 1600] : undefined}
+          src={part.href}
+        />
+      ) : (
+        <Fragment set:html={part.value} />
+      ),
+    )}
+  </section>
 </BlogPost>
