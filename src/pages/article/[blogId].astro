@@ -2,8 +2,10 @@
 import { Image } from 'astro:assets'
 import { getCollection } from 'astro:content'
 import { createMarkdown } from 'safe-marked'
-import { highlighter } from '../../lib/shiki'
 import BlogPost from '../../layouts/BlogPost.astro'
+import { highlighter } from '../../lib/shiki'
+
+type ContentParts = Array<{ type: 'html'; value: string } | { type: 'image'; href: string; alt?: string | null; imageIndex: number }>
 
 export async function getStaticPaths() {
   const posts = await getCollection('blogs')
@@ -46,10 +48,7 @@ const markdown = createMarkdown({
 
 const content = markdown(post.data.content)
 const imageTokenRegex = /__ASTRO_IMAGE__([\s\S]*?)__ASTRO_IMAGE__/g
-const contentParts: Array<
-  | { type: 'html'; value: string }
-  | { type: 'image'; href: string; alt?: string | null; imageIndex: number }
-> = []
+const contentParts: ContentParts = []
 
 let lastIndex = 0
 let imageIndex = 0
@@ -57,7 +56,7 @@ let imageIndex = 0
 for (const match of content.matchAll(imageTokenRegex)) {
   const index = match.index ?? 0
   const payload = match[1] ?? ''
-  const htmlChunk = content.slice(lastIndex, index)
+  const htmlChunk = content.slice(lastIndex, index) // 画像までのコンテンツを追加
 
   if (htmlChunk) {
     contentParts.push({ type: 'html', value: htmlChunk })
@@ -74,19 +73,12 @@ for (const match of content.matchAll(imageTokenRegex)) {
         type: 'image',
         href: data.href,
         alt: data.text,
-        imageIndex
+        imageIndex,
       })
 
       imageIndex++
     }
-  } catch {
-    if (payload) {
-      contentParts.push({
-        type: 'html',
-        value: `${IMAGE_TOKEN}${payload}${IMAGE_TOKEN}`,
-      })
-    }
-  }
+  } catch {}
 
   lastIndex = index + match[0].length
 }
@@ -99,7 +91,7 @@ if (tail) {
 
 <BlogPost post={post}>
   <section class="content mt-6">
-    {contentParts.map((part, index) =>
+    {contentParts.map((part) =>
       part.type === 'image' ? (
         <Image
           alt={part.alt ?? ''}
