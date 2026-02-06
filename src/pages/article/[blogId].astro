@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets'
+import { Picture } from 'astro:assets'
 import { getCollection } from 'astro:content'
 import { createMarkdown } from 'safe-marked'
 import BlogPost from '../../layouts/BlogPost.astro'
@@ -53,7 +53,6 @@ const contentParts: ContentParts = []
 let lastIndex = 0
 let imageIndex = 0
 
-
 const getIsPortrait = (href: string) => {
   // hの指定をしていれば縦長の画像とする
   try {
@@ -61,7 +60,7 @@ const getIsPortrait = (href: string) => {
   } catch {
     return false
   }
-} 
+}
 
 for (const match of content.matchAll(imageTokenRegex)) {
   const index = match.index ?? 0
@@ -84,7 +83,7 @@ for (const match of content.matchAll(imageTokenRegex)) {
         href: data.href,
         alt: data.text,
         imageIndex,
-        isPortrait: getIsPortrait(data.href)
+        isPortrait: getIsPortrait(data.href),
       })
 
       imageIndex++
@@ -104,7 +103,8 @@ if (tail) {
   <section class="content mt-6">
     {contentParts.map((part) =>
       part.type === 'image' ? (
-        <Image
+        <Picture
+          formats={['avif', 'webp']}
           alt={part.alt ?? ''}
           decoding="async"
           inferSize
