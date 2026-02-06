@@ -104,7 +104,8 @@ if (tail) {
     {contentParts.map((part) =>
       part.type === 'image' ? (
         <Picture
-          formats={['avif', 'webp']}
+          formats={['avif']}
+          fallbackFormat='webp'
           alt={part.alt ?? ''}
           decoding="async"
           inferSize
