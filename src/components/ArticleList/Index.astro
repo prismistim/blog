@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import ArticleListItem from './Item.astro'
+
+type Props = {
+  items: CollectionEntry<'blogs'>[]
+}
+
+const { items } = Astro.props
+---
+<ul class="flex flex-col gap-4">
+  {
+    items.map((post) => (
+      <ArticleListItem
+        id={post.id}
+        title={post.data.title}
+        description={post.data.description}
+        tags={post.data.tags}
+        publishedAt={post.data.publishedAt}
+      />
+    ))
+  }
+</ul>
