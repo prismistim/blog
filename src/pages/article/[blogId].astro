@@ -112,8 +112,9 @@ if (tail) {
           priority={part.imageIndex === 0}
           loading={part.imageIndex < 2 ? 'eager' : 'lazy'}
           sizes="(max-width: 752px) 100vw, 752px"
-          widths={!part.isPortrait ? [800, 1200, 1600] : undefined}
+          widths={!part.isPortrait ? [1024, 1200, 1600] : undefined}
           src={part.href}
+          quality={85}
         />
       ) : (
         <Fragment set:html={part.value} />
