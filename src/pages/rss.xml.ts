@@ -18,7 +18,7 @@ export async function GET() {
       title: post.data.title,
       description: post.data.description,
       pubDate: new Date(post.data.publishedAt),
-      content: post.data.isCW ? post.data.description : markdown(post.data.content),
+      content: post.data.isCW ? markdown(post.data.description) : markdown(post.data.content),
       link: `/article/${post.id}/`,
     })),
   })
