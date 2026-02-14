@@ -14,11 +14,11 @@ export async function GET() {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     site: import.meta.env.SITE,
-    items: sorted.map((post) => ({
+    items: sorted.filter(p => !p.data.isHidden).map((post) => ({
       title: post.data.title,
       description: post.data.description,
       pubDate: new Date(post.data.publishedAt),
-      content: markdown(post.data.content),
+      content: post.data.isCW ? post.data.description : markdown(post.data.content),
       link: `/article/${post.id}/`,
     })),
   })
