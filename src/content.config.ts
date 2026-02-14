@@ -44,6 +44,7 @@ const blogs = defineCollection({
     content: z.string(),
     isCW: z.boolean(),
     isHidden: z.boolean(),
+    isPinned: z.boolean(),
     oldUpdatedAt: z.string().optional(),
     tags: z.array(
       z.object({
