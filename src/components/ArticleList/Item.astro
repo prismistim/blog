@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import FormattedDate from '../FormattedDate.astro'
+
+type Blog = CollectionEntry<'blogs'>
+
+type Props = {
+  id: Blog['id']
+  title: Blog['data']['title']
+  description: Blog['data']['description']
+  tags?: Blog['data']['tags']
+  publishedAt: Blog['data']['publishedAt']
+}
+
+const { id, title, description, tags, publishedAt } = Astro.props
+---
+<li>
+  <a
+    href={`/article/${id}/`}
+    class="block rounded-md bg-stone-900/75 text-neutral-400 hover:bg-neutral-600 transition ease-in duration-100 hover:cursor-pointer"
+  >
+    <div class="p-3">
+      <h2 class="text-neutral-300">{title}</h2>
+      <p class="mt-1 text-sm italic">"{description}"</p>
+    </div>
+    <div class="w-full px-3 pt-1.5 pb-3 rounded-b-md flex justify-between text-neutral-400">
+      <ul class="flex flex-wrap gap-x-2 text-sm" aria-label="タグ">
+        {tags?.map((tag) => (
+          <li>
+            <span>#{tag.name}</span>
+          </li>
+        ))}
+      </ul>
+      <span class="text-sm">
+        <FormattedDate date={publishedAt ?? ''} format="YYYY-MM-DD" />
+      </span>
+    </div>
+  </a>
+</li>

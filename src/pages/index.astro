@@ -1,7 +1,8 @@
 ---
+import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
-import FormattedDate from '../components/FormattedDate.astro'
+import ArticleList from '../components/ArticleList/Index.astro'
 import Default from '../layouts/BaseLayout.astro'
 import dayjs from '../lib/dayjs'
 import { webSiteSchema } from '../lib/schema'
@@ -10,42 +11,29 @@ dayjs.extend(isSameOrAfter)
 
 const posts = await getCollection('blogs')
 
-const sorted = [...posts].sort((a, b) => dayjs(b.data.publishedAt).diff(a.data.publishedAt))
+const sortItems = (items: CollectionEntry<'blogs'>[]) => {
+  return [...items].sort((a, b) => dayjs(b.data.publishedAt).diff(a.data.publishedAt))
+}
+
+const sortedItems = sortItems(posts)
+
+const [pinnedItems, items] = sortedItems.reduce(
+  ([pinned, normal], item) => {
+    item.data.isPinned ? pinned.push(item) : normal.push(item)
+    return [pinned, normal]
+  },
+  [[], []] as [typeof sortedItems, typeof sortedItems],
+)
 ---
 
 <Default jsonLdSchema={webSiteSchema}>
   <header class="h-64 md:h-90 p-6 rounded-md backdrop-blur-md text-neutral-100 text-shadow-lg overflow-hidden bg-neutral-900" aria-hidden="true">
     <div class="absolute w-full h-full inset-0 -z-10 bg-[url(https://asset2.asayake.dev/thumb/jihanki.webp)] bg-cover bg-bottom"></div>
   </header>
+  <section class="mt-6 pb-6 border-b border-neutral-700">
+    <ArticleList items={pinnedItems} />
+  </section>
   <section class="mt-6">
-    <ul class="flex flex-col gap-4">
-      {
-        sorted.map((post) => (
-          <li>
-            <a
-              href={`/article/${post.id}/`}
-              class="block rounded-md bg-stone-900/75 text-neutral-400 hover:bg-neutral-600 transition ease-in duration-100 hover:cursor-pointer"
-            >
-              <div class="p-3">
-                <h2 class="text-neutral-300">{post.data.title}</h2>
-                <p class="mt-1 text-sm italic">"{post.data.description}"</p>
-              </div>
-              <div class="w-full px-3 pt-1.5 pb-3 rounded-b-md flex justify-between text-neutral-400">
-                <ul class="flex flex-wrap gap-x-2 text-sm" aria-label="タグ">
-                  {post.data.tags?.map((tag) => (
-                    <li>
-                      <span>#{tag.name}</span>
-                    </li>
-                  ))}
-                </ul>
-                <span class="text-sm">
-                  <FormattedDate date={post.data.publishedAt ?? ''} format="YYYY-MM-DD" />
-                </span>
-              </div>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <ArticleList items={items} />
   </section>
 </Default>
