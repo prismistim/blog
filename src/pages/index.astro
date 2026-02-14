@@ -1,4 +1,5 @@
 ---
+import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import ArticleList from '../components/ArticleList/Index.astro'
@@ -10,8 +11,19 @@ dayjs.extend(isSameOrAfter)
 
 const posts = await getCollection('blogs')
 
-const pinnedPosts = [...posts].filter(p => p.data.isPinned)
-const sorted = [...posts].sort((a, b) => dayjs(b.data.publishedAt).diff(a.data.publishedAt))
+const sortItems = (items: CollectionEntry<'blogs'>[]) => {
+  return [...items].sort((a, b) => dayjs(b.data.publishedAt).diff(a.data.publishedAt))
+}
+
+const sortedItems = sortItems(posts)
+
+const [pinnedItems, items] = sortedItems.reduce(
+  ([pinned, normal], item) => {
+    item.data.isPinned ? pinned.push(item) : normal.push(item)
+    return [pinned, normal]
+  },
+  [[], []] as [typeof sortedItems, typeof sortedItems],
+)
 ---
 
 <Default jsonLdSchema={webSiteSchema}>
@@ -19,9 +31,9 @@ const sorted = [...posts].sort((a, b) => dayjs(b.data.publishedAt).diff(a.data.p
     <div class="absolute w-full h-full inset-0 -z-10 bg-[url(https://asset2.asayake.dev/thumb/jihanki.webp)] bg-cover bg-bottom"></div>
   </header>
   <section class="mt-6 pb-6 border-b border-neutral-700">
-    <ArticleList items={pinnedPosts} />
+    <ArticleList items={pinnedItems} />
   </section>
   <section class="mt-6">
-    <ArticleList items={sorted} />
+    <ArticleList items={items} />
   </section>
 </Default>
