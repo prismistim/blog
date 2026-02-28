@@ -6,12 +6,7 @@ html {
   @apply mt-0;
 }
 
-.content > h2,
-.content > h3 {
-  @apply mt-10;
-}
-
-.content > :not(h2, h3) {
+.content > * {
   @apply mt-6;
 }
 
