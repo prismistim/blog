@@ -6,6 +6,7 @@ import dayjs from '../lib/dayjs'
 
 export async function GET() {
   const posts = await getCollection('blogs')
+  const rssLimit = import.meta.env.RSS_LIMIT ? Number(import.meta.env.RSS_LIMIT) : 5
   const sorted = [...posts].sort((a, b) => dayjs(b.data.publishedAt).diff(a.data.publishedAt))
 
   const markdown = createMarkdown()
@@ -14,12 +15,15 @@ export async function GET() {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     site: import.meta.env.SITE,
-    items: sorted.filter(p => !p.data.isHidden).map((post) => ({
-      title: post.data.title,
-      description: post.data.description,
-      pubDate: new Date(post.data.publishedAt),
-      content: post.data.isCW ? markdown(post.data.description) : markdown(post.data.content),
-      link: `/article/${post.id}/`,
-    })),
+    items: sorted
+      .filter(p => !p.data.isHidden)
+      .slice(0, rssLimit)
+      .map((post) => ({
+        title: post.data.title,
+        description: post.data.description,
+        pubDate: new Date(post.data.publishedAt),
+        content: post.data.isCW ? markdown(post.data.description) : markdown(post.data.content),
+        link: `/article/${post.id}/`,
+      })),
   })
 }
