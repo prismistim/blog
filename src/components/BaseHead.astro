@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import type { Article, WebSite, WithContext } from 'schema-dts'
+import ColorTheme from './InitColorTheme.astro'
 
 interface Props {
   title: string
@@ -44,3 +45,5 @@ const { title, description, image = '/snowsphere.jpg', jsonLdSchema } = Astro.pr
 {jsonLdSchema && (
   <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLdSchema)}></script>
 )}
+
+<ColorTheme />

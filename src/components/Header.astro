@@ -1,5 +1,6 @@
 ---
 import { SITE_TITLE } from '../consts'
+import ColorThemeSwitcher from './ColorThemeSwitcher.astro'
 ---
 
 <nav class="sticky top-0 z-10 px-2 py-5 flex justify-between items-center bg-neutral-950/90 backdrop-blur-lg">
@@ -12,6 +13,7 @@ import { SITE_TITLE } from '../consts'
     </a>
   </h2>
   <div class="flex gap-x-4">
+    <ColorThemeSwitcher />
     <a
       href="/rss.xml"
       aria-label="RSS"
