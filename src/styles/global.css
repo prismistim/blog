@@ -1,4 +1,8 @@
 html {
+  @apply bg-neutral-50 text-neutral-800;
+}
+
+html.dark {
   @apply bg-neutral-950 text-neutral-300;
 }
 
@@ -16,7 +20,11 @@ html {
 }
 
 article h2 {
-  @apply text-lg font-medium border-b border-neutral-500 pb-3;
+  @apply text-lg font-medium border-b pb-3;
+}
+
+.dark article h2 {
+  @apply border-neutral-500
 }
 
 article h3 {

@@ -3,7 +3,6 @@
 <button
   id="theme_toggle"
   aria-label="カラーテーマ切り替えボタン"
-  class="text-neutral-400/75 text-2xl hover:text-neutral-100 transition ease-in duration-100"
 >
   <div id="theme_toggle_dark" class="i-mynaui-moon-solid"></div>
   <div id="theme_toggle_light" class="i-mynaui-sun-medium-solid hidden"></div>
@@ -35,3 +34,13 @@
     })
   }
 </script>
+
+<style lang="scss">
+button {
+  @apply text-2xl text-neutral-400/75 hover:text-neutral-900 transition ease-in duration-100;
+
+  :global(html.dark) & {
+    @apply text-neutral-400/75 hover:text-neutral-100;
+  }
+}
+</style>
