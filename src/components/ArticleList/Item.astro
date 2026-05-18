@@ -17,13 +17,13 @@ const { id, title, description, tags, publishedAt } = Astro.props
 <li>
   <a
     href={`/article/${id}/`}
-    class="block rounded-md bg-stone-900/75 text-neutral-400 hover:bg-neutral-600 transition ease-in duration-100 hover:cursor-pointer"
+    class="article-list-item"
   >
     <div class="p-3">
-      <h2 class="text-neutral-300">{title}</h2>
+      <h2 class="article-title">{title}</h2>
       <p class="mt-1 text-sm italic">"{description}"</p>
     </div>
-    <div class="w-full px-3 pt-1.5 pb-3 rounded-b-md flex justify-between text-neutral-400">
+    <div class="article-tags">
       <ul class="flex flex-wrap gap-x-2 text-sm" aria-label="タグ">
         {tags?.map((tag) => (
           <li>
@@ -37,3 +37,29 @@ const { id, title, description, tags, publishedAt } = Astro.props
     </div>
   </a>
 </li>
+
+<style lang="scss">
+.article-list-item {
+  @apply block rounded-md transition ease-in duration-100 cursor-pointer bg-stone-200/75 text-neutral-700 hover:bg-stone-300;
+
+  h2.article-title {
+    @apply text-neutral-800;
+  }
+
+  .article-tags {
+    @apply w-full px-3 pt-1.5 pb-3 rounded-b-md flex justify-between text-neutral-600;
+  }
+
+  :global(html.dark) & {
+    @apply bg-stone-900/75 text-neutral-400 hover:bg-neutral-600;
+
+    h2.article-title {
+      @apply text-neutral-300;
+    }
+
+    .article-tags {
+      @apply text-neutral-400;
+    }
+  }
+}
+</style>

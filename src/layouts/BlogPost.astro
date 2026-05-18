@@ -47,22 +47,28 @@ const { post } = Astro.props as Props
         )}
       </article>
 
-      <nav class="flex justify-between mt-6 py-4 border-t border-neutral-600 border-dotted" aria-label="記事一覧へ戻る">
-        <a
-          href="/"
-          class="text-neutral-300 underline underline-offset-4 decoration-neutral-400 hover:decoration-rose-500 decoration-1 duration-100 transition hover:text-rose-500 ease-in hover:cursor-pointer"
-        >
-          Back to list
-        </a>
-        <a
-          href="#article_title"
-          class="text-neutral-300 underline underline-offset-4 decoration-neutral-400 hover:decoration-rose-500 decoration-1 duration-100 transition hover:text-rose-500 ease-in hover:cursor-pointer"
-        >
-          ^
-        </a>
+      <nav class="article-foot-nav" aria-label="記事一覧へ戻る">
+        <a href="/">back to list</a>
+        <a href="#article_title">^</a>
       </nav>
     </main>
     <Footer />
     <SpeedInsights />
   </body>
 </html>
+
+<style lang="scss">
+.article-foot-nav {
+  @apply flex justify-between mt-6 py-4 border-t border-neutral-600 border-dotted;
+
+  a {
+    @apply text-neutral-600 hover:text-rose-500 decoration-neutral-400 hover:decoration-rose-500 underline underline-offset-4 decoration-1 duration-100 transition ease-in hover:cursor-pointer;
+  }
+
+  :global(html.dark) & {
+    a {
+      @apply text-neutral-300;
+    }
+  }
+}
+</style>

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/rawtoast/bun-scan/v1.1.0/schema/bun-scan.schema.json",
+  "source": "osv",
+  "bunReportWarnings": false,
+  "packages": {
+    "path-to-regexp": {
+      "vulnerabilities": ["CVE-2024-45296", "CVE-2026-4923", "CVE-2026-4926"],
+      "reason": "Only reached through dev/build tooling in this static site; no untrusted route patterns are accepted at runtime. Recheck when textlint/@astrojs/vercel release patched dependency paths.",
+      "until": "2026-09-01"
+    }
+  }
+}

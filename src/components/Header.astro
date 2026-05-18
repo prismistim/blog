@@ -1,31 +1,57 @@
 ---
 import { SITE_TITLE } from '../consts'
+import ColorThemeSwitcher from './ColorThemeSwitcher.astro'
 ---
 
-<nav class="sticky top-0 z-10 px-2 py-5 flex justify-between items-center bg-neutral-950/90 backdrop-blur-lg">
-  <h2 class="text-md">
-    <a
-      href="/"
-      class="text-neutral-400 decoration-neutral-500/40 underline-offset-4 opacity-75 transition duration-100 ease-in hover:text-neutral-100"
-    >
+<nav class="navbar">
+  <h2 class="site-title">
+    <a href="/">
       {SITE_TITLE}
     </a>
   </h2>
-  <div class="flex gap-x-4">
-    <a
-      href="/rss.xml"
-      aria-label="RSS"
-      class="text-neutral-400/75 text-2xl hover:text-neutral-100 transition ease-in duration-100"
-    >
+  <div class="icons">
+    <ColorThemeSwitcher />
+    <a href="/rss.xml" aria-label="RSS">
       <div class="i-mynaui-rss"></div>
     </a>
     <a
       href="https://portal.snowsphere.net/"
       target="_blank"
       aria-label="portal (links)"
-      class="text-neutral-400/75 text-2xl hover:text-neutral-100 transition ease-in duration-100"
     >
       <div class="i-mynaui-user-solid"></div>
     </a>
   </div>
 </nav>
+
+<style lang="scss">
+.navbar {
+  @apply sticky top-0 z-10 px-2 py-5 flex justify-between items-center backdrop-blur-lg bg-neutral-50/75;
+
+  h2.site-title {
+    @apply text-md text-neutral-500 hover:text-neutral-900 decoration-neutral-500/40 underline-offset-4 opacity-75 transition duration-100 ease-in;
+  }
+
+  .icons {
+    @apply flex gap-x-4;
+
+    a {
+      @apply text-2xl text-neutral-400/75 hover:text-neutral-900 transition ease-in duration-100;
+    }
+  }
+
+  :global(html.dark) & {
+    @apply bg-neutral-950/90;
+
+    h2.site-title {
+      @apply hover:text-neutral-100;
+    }
+
+    .icons {
+      a {
+        @apply text-neutral-400/75 hover:text-neutral-100;
+      }
+    }
+  }
+}
+</style>

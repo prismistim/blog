@@ -1,0 +1,8 @@
+# bunfig.toml
+[install]
+minimumReleaseAge = 259200 # seconds
+
+minimumReleaseAgeExcludes = ["@types/bun", "typescript"]
+
+[install.security]
+scanner = "bun-scan"
